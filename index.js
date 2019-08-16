@@ -1,6 +1,6 @@
 var app = require('express')();
-var io = require('socket.io')(http);
 var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
 const REFRESH_TOKEN_TIME = 5000
 
