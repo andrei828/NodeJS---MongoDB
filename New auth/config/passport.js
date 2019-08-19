@@ -35,8 +35,8 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use('local-login', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
-        passwordField : 'password',
+        usernameField     : 'email',
+        passwordField     : 'password',
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
@@ -45,7 +45,7 @@ module.exports = function(passport) {
 
         // asynchronous
         process.nextTick(function() {
-            User.findOne({ 'local.email' :  email }, function(err, user) {
+            User.findOne({ 'email' :  email }, function(err, user) {
                 // if there are any errors, return the error
                 if (err)
                     return done(err);
@@ -70,8 +70,8 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use('local-signup', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
-        passwordField : 'password',
+        usernameField     : 'email',
+        passwordField     : 'password',
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
@@ -82,7 +82,7 @@ module.exports = function(passport) {
         process.nextTick(function() {
             // if the user is not already logged in:
             if (!req.user) {
-                User.findOne({ 'local.email' :  email }, function(err, user) {
+                User.findOne({ 'email' :  email }, function(err, user) {
                     // if there are any errors, return the error
                     if (err)
                         return done(err);
@@ -93,10 +93,13 @@ module.exports = function(passport) {
                     } else {
 
                         // create the user
-                        var newUser            = new User();
+                        var newUser      = new User();
 
-                        newUser.local.email    = email;
-                        newUser.local.password = newUser.generateHash(password);
+                        newUser.events     = [];
+                        newUser.email      = email;
+                        newUser.firstname  = req.body.firstname;
+                        newUser.secondname = req.body.secondname;
+                        newUser.password   = newUser.generateHash(password);
 
                         newUser.save(function(err) {
                             if (err)
@@ -108,10 +111,10 @@ module.exports = function(passport) {
 
                 });
             // if the user is logged in but has no local account...
-            } else if ( !req.user.local.email ) {
+            } else if ( !req.user.email ) {
                 // ...presumably they're trying to connect a local account
                 // BUT let's check if the email used to connect a local account is being used by another user
-                User.findOne({ 'local.email' :  email }, function(err, user) {
+                User.findOne({ 'email' :  email }, function(err, user) {
                     if (err)
                         return done(err);
                     
@@ -120,8 +123,13 @@ module.exports = function(passport) {
                         // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                     } else {
                         var user = req.user;
-                        user.local.email = email;
-                        user.local.password = user.generateHash(password);
+
+                        user.events     = [];
+                        user.email      = email;
+                        user.firstname  = req.firstname;
+                        user.secondname = req.secondname;
+                        user.password   = user.generateHash(password);
+                        
                         user.save(function (err) {
                             if (err)
                                 return done(err);
