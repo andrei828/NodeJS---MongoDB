@@ -96,6 +96,7 @@ module.exports = function(passport) {
                         var newUser      = new User();
 
                         newUser.events     = [];
+                        newUser.history    = [];
                         newUser.email      = email;
                         newUser.firstname  = req.body.firstname;
                         newUser.secondname = req.body.secondname;
@@ -125,6 +126,7 @@ module.exports = function(passport) {
                         var user = req.user;
 
                         user.events     = [];
+                        newUser.history = [];
                         user.email      = email;
                         user.firstname  = req.firstname;
                         user.secondname = req.secondname;
