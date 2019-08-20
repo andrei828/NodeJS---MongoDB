@@ -1,3 +1,5 @@
+var db_service = require('./db_service')
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -9,17 +11,21 @@ module.exports = function(app, passport) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        console.log(res);
         res.render('profile.ejs', {
             user : req.user
         });
     });
 
-    app.get('/testing', isLoggedIn, (req, res) => {
+    app.get('/addevent', isLoggedIn, (req, res) => {
         res.render("testing.ejs", { 
             user: req.user 
         });
     })
+
+    app.post('/addevent', isLoggedIn, (req, res) => {
+        db_service.add_event_to_db(req.body);
+        res.send("Sample");
+    });
 
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
