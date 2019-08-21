@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+<body>
+    <%= event_data.name %><br>
+    <%= event_data.location %><br>
+
+    <% if (userAlreadyGoing) { %>
+    <form action='/remove-event/<%= event_data._id %>' method="post">
+        <button type="submit" class="btn btn-danger">Leave event</button>
+    </form>
+    <% } else { %>
+    <form action='/add-event/<%= event_data._id %>' method="post">
+        <button type="submit" class="btn btn-success">Participate to event</button>
+    </form>
+    <% } %>
+
+    <p>Are you done? <a href="/profile">Go back</a></p>
+</body>

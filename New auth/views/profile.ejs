@@ -17,9 +17,16 @@
     </div>
 
     <div class="row">
-
+    
     <!-- LOCAL INFORMATION -->
         <div class="well">
+            <% for (var i = 0; i < event_list.length; i++) { %>
+                <form action='/event/<%= event_list[i]._id %>' method="get">
+                    <button type="submit" class="btn btn-warning btn-lg">
+                        <%= event_list[i].name %>
+                    </button>
+                </form><br>
+            <% } %>
             <h3><span class="fa fa-user"></span> Local</h3>
 
             <% if (user.email) { %>
@@ -43,7 +50,7 @@
 </div>
 
 <!-- LOGIN FORM -->
-    <form action="/addevent" method="get">
+    <form action="/create-event" method="get">
         <button type="submit" class="btn btn-warning btn-lg">Enter</button>
     </form>
 </body>

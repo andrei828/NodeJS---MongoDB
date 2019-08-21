@@ -11,18 +11,44 @@ module.exports = function(app, passport) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.ejs', {
-            user : req.user
+        db_service.get_events_from_db((events) => {
+            res.render('profile.ejs', {
+                user: req.user,
+                event_list: events
+            });
         });
     });
 
-    app.get('/addevent', isLoggedIn, (req, res) => {
-        res.render("testing.ejs", { 
+    app.get('/event/:event_id', isLoggedIn, (req, res) => {
+        db_service.get_event_by_id(req.params.event_id, (event) => {
+            db_service.check_user_event_link(req.user._id, event._id, (isLink) => {
+                res.render('event_page.ejs', {
+                    event_data: event,
+                    userAlreadyGoing: isLink
+                });
+            });
+        });
+    });
+
+    app.post('/add-event/:event_id', isLoggedIn, (req, res) => {
+        db_service.add_event_to_user(req.params.event_id, req.user._id, () => {
+            res.redirect('/event/' + req.params.event_id);
+        });
+    });
+
+    app.post('/remove-event/:event_id', isLoggedIn, (req, res) => {
+        db_service.remove_event_from_user(req.params.event_id, req.user._id, () => {
+            res.redirect('/event/' + req.params.event_id);
+        });
+    });
+
+    app.get('/create-event', isLoggedIn, (req, res) => {
+        res.render('testing.ejs', { 
             user: req.user 
         });
     })
 
-    app.post('/addevent', isLoggedIn, (req, res) => {
+    app.post('/create-event', isLoggedIn, (req, res) => {
         db_service.add_event_to_db(req.body);
         res.send("Sample");
     });
@@ -87,7 +113,7 @@ module.exports = function(app, passport) {
 
     // local -----------------------------------
     app.get('/unlink/local', isLoggedIn, function(req, res) {
-        var user            = req.user;
+        var user      = req.user;
         user.email    = undefined;
         user.password = undefined;
         user.save(function(err) {
