@@ -1,8 +1,74 @@
 var db_service = require('./db_service')
+var multer = require('multer'),
+bodyParser = require('body-parser'),
+path = require('path');
+
+var mongoose = require('mongoose');
+var Event = require('./models/event');
+mongoose.connect('mongodb://cosmos-db-mongodb:bgY0JHoj9sdvuS3BaVOLplVU0baxDR9G8ljg57lk5ogZOIc8FPcW0SvfsjhqyCgJC9z2LgWeEhATEdGHzdPufQ==@cosmos-db-mongodb.documents.azure.com:10255/?ssl=true&replicaSet=globaldb', { useMongoClient: true });
+
+var upload = multer({
+    storage: multer.diskStorage({
+            destination: function (req, file, callback) 
+            { callback(null, './uploads');},
+            filename: function (req, file, callback) 
+            { callback(null, file.fieldname +'-' + Date.now()+path.extname(file.originalname));}
+        }),
+
+    fileFilter: function(req, file, callback) {
+            var ext = path.extname(file.originalname)
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') 
+                return callback(null, false);
+            callback(null, true) }
+});
 
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
+    
+    // FILE UPLOAD TESTING:
+
+    app.get('/event-upload', isLoggedIn, function(req, res){
+        Event.find({}, function(err,data){
+            if(err){
+                console.log(err);
+            }else{
+                res.render('event-upload',{data:data});
+            }
+        })
+    });
+
+    app.post('/event-upload', upload.any(), isLoggedIn, function(req,res){
+        console.log("req.body"); //form fields
+        console.log(req.body);
+        console.log("req.file");
+        console.log(req.files); //form files
+
+        if(!req.body && !req.files){
+            res.json({success: false});
+        } else {    
+            Event.findOne({},function(err,data){
+                console.log("into detail");
+
+                var event = new Event({
+                    Name: req.body.title,
+                    image1: req.files[0].filename,
+                });
+
+                event.save(function(err, Person){
+                if(err)
+                    console.log(err);
+                else
+                    res.redirect('/event-upload');
+
+                });
+
+            }).sort({_id: -1}).limit(1);
+            }
+    });
+
+    // END OF FILE UPLOAD TESTING
+
 
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {
