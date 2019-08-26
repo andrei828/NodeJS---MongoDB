@@ -20,12 +20,13 @@
     
     <!-- LOCAL INFORMATION -->
         <div class="well">
+            
             <% for (var i = 0; i < event_list.length; i++) { %>
-                <form action='/event/<%= event_list[i]._id %>' method="get">
+                <form action='/event/<%= event_list[i]._id %>' method="get" style="display: inline-block; position: relative">
                     <button type="submit" class="btn btn-warning btn-lg">
                         <%= event_list[i].name %>
                     </button>
-                </form><br>
+                </form>
             <% } %>
             <h3><span class="fa fa-user"></span> Local</h3>
 
@@ -50,8 +51,10 @@
 </div>
 
 <!-- LOGIN FORM -->
+<center>
     <form action="/create-event" method="get">
-        <button type="submit" class="btn btn-warning btn-lg">Enter</button>
+        <button type="submit" class="btn btn-primary btn-lg">Create an event</button>
     </form>
+</center>
 </body>
 </html>

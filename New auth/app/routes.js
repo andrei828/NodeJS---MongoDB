@@ -1,11 +1,9 @@
-var db_service = require('./db_service')
 var multer = require('multer'),
 bodyParser = require('body-parser'),
 path = require('path');
 
-var mongoose = require('mongoose');
 var Event = require('./models/event');
-mongoose.connect('mongodb://cosmos-db-mongodb:bgY0JHoj9sdvuS3BaVOLplVU0baxDR9G8ljg57lk5ogZOIc8FPcW0SvfsjhqyCgJC9z2LgWeEhATEdGHzdPufQ==@cosmos-db-mongodb.documents.azure.com:10255/?ssl=true&replicaSet=globaldb', { useMongoClient: true });
+var db_service = require('./db_service');
 
 var upload = multer({
     storage: multer.diskStorage({
@@ -28,43 +26,44 @@ module.exports = function(app, passport) {
     
     // FILE UPLOAD TESTING:
 
-    app.get('/event-upload', isLoggedIn, function(req, res){
+    /*app.get('/create-event', isLoggedIn, function(req, res){
         Event.find({}, function(err,data){
             if(err){
                 console.log(err);
             }else{
-                res.render('event-upload',{data:data});
+                res.render('create_event',{data:data});
             }
         })
-    });
+    });*/
 
-    app.post('/event-upload', upload.any(), isLoggedIn, function(req,res){
-        console.log("req.body"); //form fields
-        console.log(req.body);
-        console.log("req.file");
-        console.log(req.files); //form files
+    app.get('/create-event', isLoggedIn, (req, res) => {
+        res.render('create_event.ejs', { 
+            user: req.user 
+        });
+    })
 
-        if(!req.body && !req.files){
+    app.post('/create-event', upload.any(), isLoggedIn, function(req,res){
+        if (!req.body && !req.files) {
             res.json({success: false});
         } else {    
             Event.findOne({},function(err,data){
-                console.log("into detail");
-
                 var event = new Event({
-                    Name: req.body.title,
-                    image1: req.files[0].filename,
+                    name: req.body.name,
+                    date: req.body.date,
+                    hour: req.body.hour,
+                    location: req.body.location,
+                    image1: req.files[0].filename
                 });
 
                 event.save(function(err, Person){
                 if(err)
                     console.log(err);
                 else
-                    res.redirect('/event-upload');
+                    res.redirect('/profile');
 
                 });
-
             }).sort({_id: -1}).limit(1);
-            }
+        }
     });
 
     // END OF FILE UPLOAD TESTING
@@ -88,7 +87,7 @@ module.exports = function(app, passport) {
     app.get('/event/:event_id', isLoggedIn, (req, res) => {
         db_service.get_event_by_id(req.params.event_id, (event) => {
             db_service.check_user_event_link(req.user._id, event._id, (isLink) => {
-                res.render('event_page.ejs', {
+                res.render('event_page', {
                     event_data: event,
                     userAlreadyGoing: isLink
                 });
@@ -106,17 +105,6 @@ module.exports = function(app, passport) {
         db_service.remove_event_from_user(req.params.event_id, req.user._id, () => {
             res.redirect('/event/' + req.params.event_id);
         });
-    });
-
-    app.get('/create-event', isLoggedIn, (req, res) => {
-        res.render('testing.ejs', { 
-            user: req.user 
-        });
-    })
-
-    app.post('/create-event', isLoggedIn, (req, res) => {
-        db_service.add_event_to_db(req.body);
-        res.send("Sample");
     });
 
     // LOGOUT ==============================

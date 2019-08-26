@@ -2,10 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 EventSchema = new Schema( {
-	Name: String,
-	image1:String,
-	image2:String,
-	image3:String,
+	name:		String,
+	date:		String,
+	hour:		String,
+	location:	String,
+	image1: 	String,
 	added_date:{
 		type: Date,
 		default: Date.now

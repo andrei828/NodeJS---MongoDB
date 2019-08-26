@@ -15,15 +15,15 @@
     <h1><span class="fa fa-sign-in"></span> Add a new event </h1>
 
     <!-- LOGIN FORM -->
-    <form action="/create-event" method="post">
+    <form action="/create-event" enctype="multipart/form-data" method="post">
         <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" name="name">
-            </div>
-            <div class="form-group">
-                <label>Locatison</label>
-                <input type="text" class="form-control" name="location">
-            </div>
+            <label>Name</label>
+            <input type="text" class="form-control" name="name">
+        </div>
+        <div class="form-group">
+            <label>Locatison</label>
+            <input type="text" class="form-control" name="location">
+        </div>
         <div class="form-group">
             <label>Date</label>
             <input type="date" class="form-control" name="date">
@@ -32,7 +32,13 @@
             <label>Hour</label>
             <input type="time" class="form-control" name="hour">
         </div>
-        <button type="submit" class="btn btn-warning btn-lg">Add event</button>
+        <div class="form-group">
+            <label>Upload an image</label>
+            <input type="file" name="upl" class="form-control-file">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-lg">Add event</button>
+        </div>
     </form>
 
     <hr>
