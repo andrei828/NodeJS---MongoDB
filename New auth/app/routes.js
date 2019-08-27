@@ -17,42 +17,35 @@ var upload = multer({
             var ext = path.extname(file.originalname)
             if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') 
                 return callback(null, false);
-            callback(null, true) }
+            callback(null, true) 
+        }
 });
 
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
     
-    // FILE UPLOAD TESTING:
-
-    /*app.get('/create-event', isLoggedIn, function(req, res){
-        Event.find({}, function(err,data){
-            if(err){
-                console.log(err);
-            }else{
-                res.render('create_event',{data:data});
-            }
-        })
-    });*/
-
     app.get('/create-event', isLoggedIn, (req, res) => {
         res.render('create_event.ejs', { 
             user: req.user 
         });
     })
 
-    app.post('/create-event', upload.any(), isLoggedIn, function(req,res){
+    app.post('/create-event', upload.any(), isLoggedIn, function(req, res){
         if (!req.body && !req.files) {
             res.json({success: false});
         } else {    
+            console.log(req.body);
+            console.log(req.files[0]);
             Event.findOne({},function(err,data){
                 var event = new Event({
                     name: req.body.name,
                     date: req.body.date,
                     hour: req.body.hour,
+                    owner: req.body.owner,
                     location: req.body.location,
-                    image1: req.files[0].filename
+                    image1: req.files[0].filename,
+                    description: req.body.description,
                 });
 
                 event.save(function(err, Person){
@@ -67,7 +60,6 @@ module.exports = function(app, passport) {
     });
 
     // END OF FILE UPLOAD TESTING
-
 
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {

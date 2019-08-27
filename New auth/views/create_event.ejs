@@ -21,7 +21,11 @@
             <input type="text" class="form-control" name="name">
         </div>
         <div class="form-group">
-            <label>Locatison</label>
+            <label>Owner</label>
+            <input type="text" class="form-control" name="owner" value="<%= user.email %>" disabled>
+        </div>
+        <div class="form-group">
+            <label>Location</label>
             <input type="text" class="form-control" name="location">
         </div>
         <div class="form-group">
@@ -33,11 +37,15 @@
             <input type="time" class="form-control" name="hour">
         </div>
         <div class="form-group">
-            <label>Upload an image</label>
-            <input type="file" name="upl" class="form-control-file">
+            <label>Description</label>
+            <textarea type="text" class="form-control" name="description" rows="3"></textarea>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-warning btn-lg">Add event</button>
+            <label>Upload an image</label>
+            <input type="file" name="upl" class="form-control-file" style="width: 100%">
+        </div><br>
+        <div class="form-group">
+            <center><button type="submit" class="btn btn-warning btn-lg">Add event</button></center>
         </div>
     </form>
 
