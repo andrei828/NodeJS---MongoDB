@@ -12,6 +12,7 @@
     <%= event_data.name %><br>
     <%= event_data.location %><br>
     <%= event_data.image1 %><br>
+    <%= event_data.categories %>
     <img src="../<%= event_data.image1 %>" class="img-thumbnail" style="max-width: 100px; max-height: 100px" />
     <% if (userAlreadyGoing) { %>
     <form action='/remove-event/<%= event_data._id %>' method="post">

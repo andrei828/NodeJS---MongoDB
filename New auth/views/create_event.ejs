@@ -113,13 +113,15 @@
 				}
 			}
 
-			if (list.length ) {
+			document.getElementById('form_categories').value = ''
+			if (list.length) {
 				document.getElementById('category_results').innerHTML = ''
 				for (var index = 0; index < list.length; index++) {
 					document.getElementById('category_results').innerHTML += ' ' + list[index];
+					document.getElementById('form_categories').value += list[index];
 				}
 			} else {
-				document.getElementById('category_results').innerHTML = 'Your categories'
+				document.getElementById('category_results').innerHTML = 'Select your categories from below'
 			}
 		}
 
@@ -210,14 +212,18 @@
         <div class="form-group">
             <label>Description</label>
             <textarea type="text" class="form-control" name="description" rows="3" placeholder="Gonna be awesome"></textarea>
-        </div>
+		</div>
+		<div class="form-group" style="display: none">
+			<input id="form_categories" type="text" class="form-control" name="categories">
+		</div>
         <center>
-        <label style="margin: 10px;" id="category_results">Your categories</label><br>
-        
-        <div class="tile_list"></div></center><br>
-        <label>Add a new event category if you didn't find it above</b></label>
-        <input id="new_tile_text" class="form-control" style="width: 100%; text-align: center;"></input>
-        <br><br>
+			<label style="margin: 10px;" id="category_results">Select your categories from below</label><br>
+			<div class="tile_list"></div>
+		</center>
+		
+		<br><label>Add a new event category if you didn't find it above</b></label>
+        <input id="new_tile_text" style="width: 100%; text-align: center;"></input><br><br>
+		
         <center><div class="form-group">
             <label>Upload an image</label>
             <input type="file" name="upl" class="form-control-file" style="width: 80%">

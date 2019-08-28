@@ -46,6 +46,7 @@ module.exports = function(app, passport) {
                     location: req.body.location,
                     image1: req.files[0].filename,
                     description: req.body.description,
+                    categories: req.body.categories.split('#')
                 });
 
                 event.save(function(err, Person){

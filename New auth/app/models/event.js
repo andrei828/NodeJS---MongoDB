@@ -9,6 +9,7 @@ EventSchema = new Schema( {
 	hour:			String,
 	location:		String,
 	image1: 		String,
+	categories:		[],
 	added_date:{
 		type: Date,
 		default: Date.now
