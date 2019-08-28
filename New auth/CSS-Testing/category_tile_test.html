@@ -1,19 +1,10 @@
 <html>
 <head>
-    <title>Node Authentication</title>
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<style>
-        body {
-            /*padding-top:30px; */
-            margin-right: 15%;
-            font-family: Segoe UI Light; 
-        }
-
 		.category_tile {
 			position: relative;
 			display: inline-block;
@@ -119,7 +110,7 @@
 					document.getElementById('category_results').innerHTML += ' ' + list[index];
 				}
 			} else {
-				document.getElementById('category_results').innerHTML = 'Your categories'
+				document.getElementById('category_results').innerHTML = '...'
 			}
 		}
 
@@ -170,71 +161,25 @@
            	add_tile_input.addEventListener('keydown', (e) => {
            		if (e.keyCode === 13 && add_tile_input.value) {
            			add_new_tile("#" + add_tile_input.value)
-                    add_tile_input.value = null;
-                    e.preventDefault();
-                    return false;   
+           			add_tile_input.value = null;
            		}
            	})
         }
 	</script>
-
 </head>
+
 <body>
-<div class="container">
-<div class="row">
-<div class="col-sm-8 col-md-8" style="margin-top: 50px">
+	
+<center>
+<div style="margin-top: 2%;">
+	<label><b>Add event categories</b></label>
+	<input id="new_tile_text" class="form-control" style="width: 60%; max-width: 500px; text-align: center;"></input>
+</div>
 
-    <h1><span class="fa fa-sign-in"></span> Add a new event </h1><br>
-    <!-- LOGIN FORM -->
-    <form action="/create-event" enctype="multipart/form-data" method="post">
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="name" placeholder="Rock concert">
-        </div>
-        <div class="form-group">
-            <label>Owner</label>
-            <input type="text" class="form-control" name="owner" value="<%= user.email %>" disabled>
-        </div>
-        <div class="form-group">
-            <label>Location</label>
-            <input type="text" class="form-control" name="location" placeholder="National Arena">
-        </div>
-        <div class="form-group">
-            <label>Date</label>
-            <input type="date" class="form-control" name="date">
-        </div>
-        <div class="form-group">
-            <label>Hour</label>
-            <input type="time" class="form-control" name="hour">
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <textarea type="text" class="form-control" name="description" rows="3" placeholder="Gonna be awesome"></textarea>
-        </div>
-        <center>
-        <label style="margin: 10px;" id="category_results">Your categories</label><br>
-        
-        <div class="tile_list"></div></center><br>
-        <label>Add a new event category if you didn't find it above</b></label>
-        <input id="new_tile_text" class="form-control" style="width: 100%; text-align: center;"></input>
-        <br><br>
-        <center><div class="form-group">
-            <label>Upload an image</label>
-            <input type="file" name="upl" class="form-control-file" style="width: 80%">
-        </div><br>
-        <div class="form-group">
-           <button type="submit" class="btn btn-default btn-lg"><u>Add event</u></button>
-        </div>
-        </center>
-    </form>
+<br><label id="category_results">...</label><br><br>
 
-    <hr>
+<div class="tile_list" style="max-width: 600px;"></div>
+</center>
 
-</div>
-<div class="col-sm-4 col-md-4">
-    <!---->
-    <img height="100%" src="https://images.unsplash.com/photo-1513171920216-2640b288471b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" />    
-</div>
-</div>
-</div>
 </body>
+</html>
