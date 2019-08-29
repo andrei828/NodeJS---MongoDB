@@ -18,6 +18,14 @@ db_service.add_event_to_user = (event_id, user_id, callback) => {
     );
 }
 
+db_service.add_config_to_user = (user_id, user_city, profile_pic, user_categories, callback) => {
+    User.updateOne(
+        { _id: mongo.ObjectID(user_id) },
+        { $push: { categories: { $each: user_categories } }, image: profile_pic, city: user_city },
+        (err, res) => { if (err) throw err; callback() }
+    );
+}
+
 db_service.remove_event_from_user = (event_id, user_id, callback) => {
     User.updateOne(
         { _id: mongo.ObjectID(user_id) },

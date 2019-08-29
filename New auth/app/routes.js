@@ -132,10 +132,30 @@ module.exports = function(app, passport) {
 
         // process the signup form
         app.post('/signup', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
+            successRedirect : '/config-profile', // redirect to the secure profile section
             failureRedirect : '/signup', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
         }));
+
+        app.get('/config-profile', isLoggedIn, (req, res) => {
+            res.render("config-profile", { user: req.user })
+        })
+
+        app.post('/config-profile', upload.any(), isLoggedIn, (req, res) => {
+            if (!req.body && !req.files) {
+                res.json({success: false});
+            } else {   
+                console.log(req.body);
+                console.log('OBJECTID:');
+                console.log(req.user._id);
+                db_service.add_config_to_user(
+                    req.user._id, req.body.city, req.files[0].filename, 
+                    req.body.categories.split('#').splice(1), 
+                    () => {
+                        res.redirect('/profile');
+                });
+            }
+        })
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============

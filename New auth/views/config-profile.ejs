@@ -1,12 +1,14 @@
+<!doctype html>
 <html>
 <head>
-    <title>Node Authentication</title>
+    <title>Config the profile</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<style>
+
+    <style>
         body {
             /*padding-top:30px; */
             margin-right: 15%;
@@ -178,66 +180,38 @@
            	})
         }
 	</script>
-
 </head>
-<body>
-<div class="container">
-<div class="row">
-<div class="col-sm-8 col-md-8" style="margin-top: 50px">
 
-    <h1><span class="fa fa-sign-in"></span> Add a new event </h1><br>
-    <!-- LOGIN FORM -->
-    <form action="/create-event" enctype="multipart/form-data" method="post">
+<body>
+    <%= user.email %>
+    <%= user.firstname %>
+    <button type="button" class="btn btn-default" href="/profile"><u>Go to profile</u></button>
+        <br><br>
+
+    <form action="/config-profile" enctype="multipart/form-data" method="post">
         <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="name" placeholder="Rock concert">
+            <label>City</label>
+            <input type="text" class="form-control" name="city" placeholder="Bucharest">
         </div>
         <div class="form-group">
-            <label>Owner</label>
-            <input type="text" class="form-control" name="owner" value="<%= user.email %>" disabled>
+            <label>Upload an image</label>
+            <input type="file" name="upl" class="form-control-file">
         </div>
-        <div class="form-group">
-            <label>Location</label>
-            <input type="text" class="form-control" name="location" placeholder="National Arena">
-        </div>
-        <div class="form-group">
-            <label>Date</label>
-            <input type="date" class="form-control" name="date">
-        </div>
-        <div class="form-group">
-            <label>Hour</label>
-            <input type="time" class="form-control" name="hour">
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <textarea type="text" class="form-control" name="description" rows="3" placeholder="Gonna be awesome"></textarea>
-		</div>
-		<div class="form-group" style="display: none">
+        <div class="form-group" style="display: none">
 			<input id="form_categories" type="text" class="form-control" name="categories">
 		</div>
-        
-		<label style="margin: 10px;" id="category_results">Select your categories from below</label><br>
-		<div class="tile_list"></div>
-	
+        <center>
+			<label style="margin: 10px;" id="category_results">Select your categories from below</label><br>
+			<div class="tile_list"></div>
+		</center>
+		
 		<br><label>Add a new event category if you didn't find it above</b></label>
         <input id="new_tile_text" style="width: 100%; text-align: center;"></input><br><br>
 		
         <div class="form-group">
-            <label>Upload an image</label>
-            <input type="file" name="upl" class="form-control-file" style="width: 80%">
-        </div><br>
-        <div class="form-group">
-           <button type="submit" class="btn btn-default btn-lg"><u>Add event</u></button>
-        </div>
+            <button type="submit" class="btn btn-default btn-lg"><u>Add event</u></button>
+         </div>
     </form>
-
-    <hr>
-
-</div>
-<div class="col-sm-4 col-md-4">
-    <!---->
-    <img height="100%" src="https://images.unsplash.com/photo-1513171920216-2640b288471b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" />    
-</div>
-</div>
-</div>
+    
 </body>
+</html>

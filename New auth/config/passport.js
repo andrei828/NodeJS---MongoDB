@@ -93,14 +93,17 @@ module.exports = function(passport) {
                     } else {
 
                         // create the user
-                        var newUser      = new User();
+                        var newUser = new User();
 
-                        newUser.events     = [];
-                        newUser.history    = [];
-                        newUser.email      = email;
-                        newUser.firstname  = req.body.firstname;
-                        newUser.secondname = req.body.secondname;
-                        newUser.password   = newUser.generateHash(password);
+                        newUser.events         = [];
+                        newUser.history        = [];
+                        newUser.categories     = [];
+                        newUser.interested     = [];
+                        newUser.not_interested = [];
+                        newUser.email          = email;
+                        newUser.firstname      = req.body.firstname;
+                        newUser.secondname     = req.body.secondname;
+                        newUser.password       = newUser.generateHash(password);
 
                         newUser.save(function(err) {
                             if (err)
@@ -123,14 +126,17 @@ module.exports = function(passport) {
                         return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
                         // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                     } else {
-                        var user = req.user;
+                        var newUser = req.user;
 
-                        user.events     = [];
-                        newUser.history = [];
-                        user.email      = email;
-                        user.firstname  = req.firstname;
-                        user.secondname = req.secondname;
-                        user.password   = user.generateHash(password);
+                        newUser.events         = [];
+                        newUser.history        = [];
+                        newUser.categories     = [];
+                        newUser.interested     = [];
+                        newUser.not_interested = [];
+                        newUser.email          = email;
+                        newUser.firstname      = req.body.firstname;
+                        newUser.secondname     = req.body.secondname;
+                        newUser.password       = newUser.generateHash(password);
                         
                         user.save(function (err) {
                             if (err)
