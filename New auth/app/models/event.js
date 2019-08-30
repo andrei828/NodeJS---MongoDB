@@ -9,12 +9,17 @@ EventSchema = new Schema( {
 	hour:			String,
 	location:		String,
 	image1: 		String,
+	city:			String,
+	nr_seats:		Number,
+	price_type:		String,
+	prices:			[],
 	categories:		[],
+	rel_events:		[],
 	added_date:{
 		type: Date,
 		default: Date.now
 	}
 }),
 Event = mongoose.model('Event', EventSchema);
-// price[], price_type, nr_seats, rel_events[], city
+
 module.exports = Event;

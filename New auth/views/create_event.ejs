@@ -32,13 +32,13 @@
 		.category_checked {
 			position: relative;
 			display: none;
-			width: 100px;
+			width: 90px;
 			vertical-align: middle;
 			text-align: center;
 			line-height: 100px;
-			opacity: 0.8;
+			opacity: 0.9;
 			transition: 0.3s;
-			transform: translateY(-115px);
+			transform: translate(10px, -111px);
 			-webkit-animation: fadein 0.4s; /* Safari, Chrome and Opera > 12.1 */
 			-moz-animation: fadein 0.4s; /* Firefox < 16 */
 			-ms-animation: fadein 0.4s; /* Internet Explorer */
@@ -95,7 +95,7 @@
 		categories = ["#social", "#concert", "#basketball", "#sports", "#jazz", "#meetup", "#running", "#competition", "#friendship",
 					  "#rave", "#rock", "#rap", "#exclusive", "#food", "#coffee", "#art", "#football", "#volleyball"]
 		list = []
-		CHECKED_SRC = 'https://cdn1.iconfinder.com/data/icons/vibrancie-action/30/action_027-checkmark-done-check-finish-512.png'
+		CHECKED_SRC = 'https://cdn2.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/check-circle-green-512.png'
 		
 		function category_tile_clicked(tile) {
 			if (tile.children[1].style.display != 'block') {
@@ -175,7 +175,7 @@
                     e.preventDefault();
                     return false;   
            		}
-           	})
+			})
         }
 	</script>
 
@@ -199,6 +199,10 @@
         <div class="form-group">
             <label>Location</label>
             <input type="text" class="form-control" name="location" placeholder="National Arena">
+		</div>
+		<div class="form-group">
+            <label>City</label>
+            <input type="text" class="form-control" name="city" placeholder="Bucharest">
         </div>
         <div class="form-group">
             <label>Date</label>
@@ -224,19 +228,34 @@
 		
         <div class="form-group">
             <label>Upload an image</label>
-            <input type="file" name="upl" class="form-control-file" style="width: 80%">
-        </div><br>
-        <div class="form-group">
+            <input type="file" name="upl" class="form-control-file" style="width: 100%">
+		</div><br>
+		<div class="row">
+			<div class="form-group col-sm-6 col-md-6">
+				<label style="margin-right: 25px">Prices</label>
+				<label style="margin-right: 10px" class="radio-inline"><input type="radio" name="currency" value="€" checked> €</label>
+				<label style="margin-right: 10px" class="radio-inline"><input type="radio" name="currency" value="$"> $</label>
+				<label style="margin-right: 10px" class="radio-inline"><input type="radio" name="currency" value="RON"> RON</label>
+				<label style="margin-right: 10px" class="radio-inline"><input type="radio" name="currency" value="FREE"> FREE</label>
+				<input type="text" class="form-control" name="prices" id="prices" placeholder="123 250 530"></input><br>
+				
+			</div>
+			<div class="form-group col-sm-6 col-md-6">
+				<label>Number of people</label>
+				<input type="number" class="form-control" name="num_of_seats" placeholder="150">
+			</div>
+		</div>
+        <div class="form-group" style="text-align: center">
            <button type="submit" class="btn btn-default btn-lg"><u>Add event</u></button>
         </div>
     </form>
-
+</div>
     <hr>
 
-</div>
-<div class="col-sm-4 col-md-4">
-    <!---->
+
+<div class="col-sm-2 col-md-2">
     <img height="100%" src="https://images.unsplash.com/photo-1513171920216-2640b288471b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" />    
+</div>
 </div>
 </div>
 </div>

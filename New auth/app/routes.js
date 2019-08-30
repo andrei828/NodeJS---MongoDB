@@ -37,16 +37,22 @@ module.exports = function(app, passport) {
         } else {    
             console.log(req.body);
             console.log(req.files[0]);
+
+            // query relative events by categories
             Event.findOne({},function(err,data){
                 var event = new Event({
                     name: req.body.name,
+                    city: req.body.city,
                     date: req.body.date,
                     hour: req.body.hour,
                     owner: req.body.owner,
+                    currency: req.body.currency,
                     location: req.body.location,
                     image1: req.files[0].filename,
                     description: req.body.description,
-                    categories: req.body.categories.split('#')
+                    prices: req.body.prices.split(' '),
+                    num_of_seats: req.body.num_of_seats,
+                    categories: req.body.categories.split('#').splice(1)
                 });
 
                 event.save(function(err, Person){
