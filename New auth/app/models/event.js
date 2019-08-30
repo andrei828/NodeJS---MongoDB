@@ -16,5 +16,5 @@ EventSchema = new Schema( {
 	}
 }),
 Event = mongoose.model('Event', EventSchema);
-
+// price[], price_type, nr_seats, rel_events[], city
 module.exports = Event;
