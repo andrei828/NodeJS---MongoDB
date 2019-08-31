@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+    <title>Event Tile</title>
+    <!-- Important Owl stylesheet -->
+    <link rel="stylesheet" href="owl.carousel.min.css">
+    <!-- Default Theme -->
+    <link rel="stylesheet" href="owl.theme.default.min.css">
+    
+    <!--  jQuery 1.7+  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Include js plugin -->
+    <script src="owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.owl-carousel').owlCarousel({
+                    loop:true,
+                    margin:10,
+                    dots: false,
+                    autoHeight: true,
+                    responsive:{
+                        0:{
+                            items:1
+                        },
+                        600:{
+                            items:3
+                        },
+                        1000:{
+                            items:5
+                        }
+                    }
+                })
+            });
+
+        function mouse_hover_event_tile(element) {
+            element.children[0].style = "transform: translateY(40px)";
+        }
+
+        function mouse_out_event_tile(element) {
+            element.children[0].style = "transform: translateY(-40px)";
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Helvetica';
+        }
+
+        .item {
+            /*background-color: saddlebrown;*/
+            
+            background-image: linear-gradient(to bottom, 
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0), 95%,
+                    rgba(0,0, 0,1) 110%), url('Signup.png');
+            background-size: cover;
+            margin: 2em;
+            height: 250px;
+            color: white;
+            z-index: 15;
+            min-width: 200px;
+            transition: transform 0.4s;
+            box-shadow: 0px 0px 5px gray;
+        }
+
+        .tile_text {
+            position: absolute;
+            margin-left: 2%;
+            text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+        }
+
+        .item:hover {    
+            cursor: pointer;        
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px gray;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <br><br><br><br><br>
+    <h1 style="margin: 2%;">Recommended for you</h1>
+    <div class="owl-carousel owl-theme tile_list">
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <h1 style="margin: 2%;">Interesting nearby</h1>
+    <div class="owl-carousel owl-theme tile_list">
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <h1 style="margin: 2%;">Social events nearby</h1>
+    <div class="owl-carousel owl-theme tile_list">
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+        <div class="item">
+            <div style="height:100%; position:relative;">
+                <div style="height:10%; position:absolute; bottom:1%; left:2%;">Metallica concert, 12nd of May</div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
