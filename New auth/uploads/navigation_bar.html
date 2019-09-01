@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <title>Navigation bar</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        .navigation-bar {
+            background-color: #323232;
+            color: white;
+            font-family: Helvetica; 
+        }
+        .left-side {
+            display: inline-block;
+        }
+        .right-side {
+            float: right;
+        }
+        .dropdown-item:hover {
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navigation-bar">
+        <!--https://hookagency.com/website-color-schemes-->
+        <div class="left-side">
+            <img src="Signup.png" width="50px" height="50px" style="margin: 15px; border-radius: 15px; margin-right: 30px">
+            <span style="margin-right: 15px; font-family: Segoe UI Bold">Home</span>
+            <span style="margin-right: 15px">Events</span>
+            <span style="margin-right: 15px">About</span>
+            <span style="margin-right: 15px">Support</span>
+        </div>
+        <div class="right-side dropdown">
+            <span>Hi, Andrew!</span>
+            <img src="Draft_landing_page.png" class="dropdown-toggle" data-toggle="dropdown" width="50px" height="50px" style="border-radius: 30px; margin: 15px; opacity: 1;">
+            
+            <div class="dropdown-menu" style="margin: 10px; text-align: center">
+                <p class="dropdown-item">My profile</p>
+                <p class="dropdown-item">Upcoming</p>
+                <p class="dropdown-item">History</p>
+                <p class="dropdown-item">Sign out</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

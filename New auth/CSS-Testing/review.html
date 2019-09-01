@@ -1,0 +1,101 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+.review {
+    width: 300px;
+    position: absolute;
+    right: 2em;
+    bottom: 3em;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 1em;
+    
+}
+
+.rating {
+    position: relative;
+    margin-right: 50px;
+    margin-bottom: 25px;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    /*clip:rect(0,0,0,0);*/
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+    
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+    
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+    
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    
+}
+
+.rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
+</style>
+</head>
+<body>
+
+<div class="review">
+    <p style="text-align: center">Please rate your experience</p>
+    <div class="rating">
+        <input type="radio" id="star5" name="rating" value="5" onclick="func(this)"/><label for="star5" title="Rocks!">5 stars</label>
+        <input type="radio" id="star4" name="rating" value="4" onclick="func(this)"/><label for="star4" title="Pretty good">4 stars</label>
+        <input type="radio" id="star3" name="rating" value="3" onclick="func(this)"/><label for="star3" title="Meh">3 stars</label>
+        <input type="radio" id="star2" name="rating" value="2" onclick="func(this)"/><label for="star2" title="Kinda bad">2 stars</label>
+        <input type="radio" id="star1" name="rating" value="1" onclick="func(this)"/><label for="star1" title="Sucks big time">1 star</label>
+    </div>
+    <div class="form-group">
+        <textarea type="text" class="form-control" name="description" rows="4" style="resize: none; margin-top: 3em;" placeholder="Leave a review"></textarea>
+    </div>
+    <center><button class="btn btn-primary" style="">Submit</button></center>
+    <script>
+function func(element) {
+	alert(element.value);
+}
+</script>
+</div>
+
+</body>
+</html>

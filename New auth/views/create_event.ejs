@@ -9,14 +9,15 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<style>
 		body {
-			/*padding-top:30px; */
-		
+		 	background-color: #d8d8d8;
 			font-family: Segoe UI Light;
 		}
 
+		input {
+			background-color: transparent;
+		}
 		.navigation-bar {
-            background-color: #6B7A8F; 
-            border-bottom: 1.5px solid green;
+            background-color: #323232;
             color: white;
             font-family: Helvetica; 
 			width: 100%;
@@ -25,8 +26,15 @@
         .left-side {
             display: inline-block;
         }
+
         .right-side {
             float: right;
+        }
+
+		.dropdown-item:hover {
+            background-color: blue;
+            color: white;
+            cursor: pointer;
         }
 
 		.category_tile {
@@ -244,60 +252,60 @@
             <img src="Draft_landing_page.png" class="dropdown-toggle" data-toggle="dropdown" width="50px" height="50px" style="border-radius: 30px; margin: 15px; opacity: 1;">
             
             <div class="dropdown-menu" style="position: relative; text-align: center; z-index:5;">
-                <p>My profile</p>
-                <p>Upcoming</p>
-                <p>History</p>
-                <p>Sign out</p>
+                <p class="dropdown-item">My profile</p>
+                <p class="dropdown-item">Upcoming</p>
+                <p class="dropdown-item">History</p>
+                <p class="dropdown-item">Sign out</p>
             </div>
         </div>
     </div>
 	<div class="row" style="position:relative; width: 100%; ">
-	<div class="col-sm-7 col-md-7">
-	<div class="container" style="padding: 3%; padding-top:5%; padding-left: 5%;">
+	<div class="col-sm-12 col-md-12">
+	<div class="container" style="padding: 3%; padding-top:5%; padding-left: 6%;">
 				<h1><span class="fa fa-sign-in"></span> Add a new event </h1><br>
 				<!-- LOGIN FORM -->
 				<form action="/create-event" enctype="multipart/form-data" method="post">
 					<div class="form-group">
 						<label>Name</label>
-						<input type="text" class="form-control" name="name" placeholder="Rock concert">
+						<input type="text" style="background: transparent; border: 1px solid #323232" class="form-control" name="name" placeholder="Rock concert">
 					</div>
 					<div class="form-group">
 						<label>Owner</label>
-						<input type="text" class="form-control" name="owner" value="<%= user.email %>" disabled>
+						<input style="background: transparent; border: 1px solid #323232" type="text" class="form-control" name="owner" value="<%= user.email %>" disabled>
 					</div>
 					<div class="form-group">
 						<label>Location</label>
-						<input type="text" class="form-control" name="location" placeholder="National Arena">
+						<input style="background: transparent; border: 1px solid #323232" type="text" class="form-control" name="location" placeholder="National Arena">
 					</div>
 					<div class="form-group">
 						<label>City</label>
-						<input type="text" class="form-control" name="city" placeholder="Bucharest">
+						<input style="background: transparent; border: 1px solid #323232" type="text" class="form-control" name="city" placeholder="Bucharest">
 					</div>
 					<div class="form-group">
 						<label>Date</label>
-						<input type="date" class="form-control" name="date">
+						<input style="background: transparent; border: 1px solid #323232" type="date" class="form-control" name="date">
 					</div>
 					<div class="form-group">
 						<label>Hour</label>
-						<input type="time" class="form-control" name="hour">
+						<input style="background: transparent; border: 1px solid #323232" type="time" class="form-control" name="hour">
 					</div>
 					<div class="form-group">
 						<label>Description</label>
-						<textarea type="text" class="form-control" name="description" rows="3" placeholder="Gonna be awesome"></textarea>
+						<textarea style="background: transparent; border: 1px solid #323232" type="text" class="form-control" name="description" rows="3" placeholder="Gonna be awesome"></textarea>
 					</div>
 					<div class="form-group" style="display: none">
-						<input id="form_categories" type="text" class="form-control" name="categories">
+						<input style="background: transparent; border: 1px solid #323232" id="form_categories" type="text" class="form-control" name="categories">
 					</div>
 
 					<label style="margin: 10px; text-align: center" id="category_results">Select your categories from below</label><br>
 					<div class="tile_list"></div>
 
 					<br><label>Add a new event category if you didn't find it above</b></label>
-					<input id="new_tile_text" style="width: 100%;"></input><br><br>
+					<input id="new_tile_text" style="width: 100%; background: transparent; border: 1px solid #323232"></input><br><br>
 
 					<div class="form-group">
 						<label>Upload an image</label>
-						<input type="file" name="upl" class="form-control-file" style="width: 100%">
+						<input  type="file" name="upl" class="form-control-file" style="width: 100%">
 					</div><br>
 					<div class="row">
 						<div class="form-group col-sm-6 col-md-6">
@@ -306,18 +314,18 @@
 							<label style="margin-right: 10px" class="radio-inline"><input type="radio" name="currency" value="$"> $</label>
 							<label style="margin-right: 10px" class="radio-inline"><input type="radio" name="currency" value="RON"> RON</label>
 							<label style="margin-right: 10px" class="radio-inline"><input type="radio" name="currency" value="FREE"> FREE</label>
-							<input type="text" class="form-control" name="prices" id="prices" placeholder="123 250 530"></input><br>
+							<input style="background: transparent; border: 1px solid #323232" type="text" class="form-control" name="prices" id="prices" placeholder="123 250 530"></input><br>
 
 						</div>
 						<div class="form-group col-sm-6 col-md-6">
 							<label>Number of people</label>
-							<input type="number" class="form-control" name="num_of_seats" placeholder="150">
+							<input style="background: transparent; border: 1px solid #323232" type="number" class="form-control" name="num_of_seats" placeholder="150">
 						</div>
 					</div>
 					<div class="form-group" style="text-align: center">
 						<button type="submit" class="btn btn-default btn-lg"><u>Add event</u></button>
 					</div>
-					<hr>
+					
 				</form>
 		
 
@@ -325,9 +333,6 @@
 			
 
 		</div>
-		</div>
-		<div class="col-sm-5 col-md-5 container" style="width:100%; background-size: cover; background-image: url('https://images.unsplash.com/photo-1513171920216-2640b288471b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80')">
-			
 		</div>
 	</div>
 </body>
