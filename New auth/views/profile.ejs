@@ -289,7 +289,7 @@
                         rgba(0,0, 0, 0), 90%,
                         rgba(0, 0, 0, 0.7) 100%), url('<%= event_list[i].image1 %>');">
                     <div style="height:100%; position:relative;">
-                        <div style="height:10%; position:absolute; bottom:1%; left:2%;"><b><%= event_list[i].name %>, <%= event_list[i].date %></b></div>
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= event_list[i].name %>, <%= event_list[i].date %></b></p>
                     </div>
              </div>
             </form>
@@ -300,12 +300,12 @@
     <div class="owl-carousel owl-theme tile_list">
         <% for (var i = 0; i < event_list.length; i++) { %>
             <form action='/event/<%= event_list[event_list.length - i - 1]._id %>' onclick="Event_tile_clicked(this)" method="get">
-                <div class="item" " style="background-image: linear-gradient(to bottom, 
+                <div class="item" style="background-image: linear-gradient(to bottom, 
                         rgba(0,0, 0, 0), 90%,
                         rgba(0, 0, 0, 0.7) 100%), url('<%= event_list[event_list.length - i - 1].image1 %>');">
                     
                     <div style="height:100%; position:relative;">
-                        <div style="height:10%; position:absolute; bottom:1%; left:2%;"><b><%= event_list[event_list.length - i - 1].name %>, <%= event_list[event_list.length - i - 1].date %></b></div>
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= event_list[event_list.length - i - 1].name %>, <%= event_list[event_list.length - i - 1].date %></b></p>
                     </div>
                 </div>
             </form>
@@ -319,7 +319,7 @@
                         rgba(0,0, 0, 0), 90%,
                         rgba(0, 0, 0, 0.7) 100%), url('<%= event_list[i].image1 %>');">
                     <div style="height:100%; position:relative;">
-                        <div style="height:10%; position:absolute; bottom:1%; left:2%;"><b><%= event_list[i].name %>, <%= event_list[i].date %></b></div>
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= event_list[i].name %>, <%= event_list[i].date %></b></p>
                     </div>
                 </div>
             </form>
@@ -334,7 +334,7 @@
                             rgba(0,0, 0, 0), 90%,
                             rgba(0, 0, 0, 0.7) 100%), url('<%= event_list[event_list.length - i - 1].image1 %>');">
                     <div style="height:100%; position:relative;">
-                        <div style="height:10%; position:absolute; bottom:1%; left:2%;"><b><%= event_list[event_list.length - i - 1].name %>, <%= event_list[event_list.length - i - 1].date %></b></div>
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= event_list[event_list.length - i - 1].name %>, <%= event_list[event_list.length - i - 1].date %></b></p>
                     </div>
                 </div>
             </form>
