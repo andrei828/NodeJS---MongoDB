@@ -6,13 +6,45 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Important Owl stylesheet -->
+    <link rel="stylesheet" href="../owl.carousel.min.css">
+    <!-- Default Theme -->
+    <link rel="stylesheet" href="../owl.theme.default.min.css">
     
+    <!--  jQuery 1.7+  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Include js plugin -->
+    <script src="../owl.carousel.min.js"></script>
+
     <style>
         body {
             font-family: 'Segoe UI';
             background-color: #d8d8d8;
         }
 
+        .item {
+            background-size: cover;
+            margin: 2em;
+            height: 250px;
+            color: white;
+            z-index: 15;
+            min-width: 200px;
+            transition: transform 0.4s;
+            box-shadow: 0px 0px 5px gray;
+        }
+
+        .tile_text {
+            position: absolute;
+            margin-left: 2%;
+            text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+        }
+
+        .item:hover {    
+            cursor: pointer;        
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px gray;
+            
+        }
 
         #open_review_button {
         cursor: pointer;
@@ -120,6 +152,26 @@
     </style>
 
     <script>
+$(document).ready(function(){
+            $('.owl-carousel').owlCarousel({
+                loop:true,
+                margin:10,
+                dots: false,
+                autoHeight: true,
+                responsive:{
+                    0:{
+                        items:2.2
+                    },
+                    600:{
+                        items:2.2
+                    },
+                    1000:{
+                        items: 4.2
+                    }
+                }
+            })
+        });
+
         function open_review_div(review_icon) {
             review_icon.style.display = "none";
             document.getElementsByClassName("review")[0].style.display = "block";
@@ -181,26 +233,50 @@
     </script>
     </div>
    
-    <div class="row" style="margin-top: 5%">
-        <div class="col-sm" style="text-align: center">
-            <img src="../<%= event_data.image1 %>" style="width: 80%; box-shadow: 0px 0px 35px black" />
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-6" style="text-align: center; margin-top: 3%">
+            <center><img src="../<%= event_data.image1 %>" style="width: 90%; box-shadow: 0px 0px 35px black; " /></center>
         </div>
-        <div class="col-sm">
-            <%= event_data.name %><br>
+        <div class="col-sm-12 col-md-12 col-lg-6" style="margin-top: 2%; padding-left: 2%; padding-right: 2%;">
+            <!--<%= event_data.name %><br>
             <%= event_data.image1 %><br>
             <%= event_data.location %><br>
-            <%= event_data.categories %>
-            <br><br>
-            <% if (userAlreadyGoing) { %>
-            <form action='/remove-event/<%= event_data._id %>' method="post">
-                <button type="submit" class="btn btn-danger">Leave event</button>
-            </form>
-            <% } else { %>
-            <form action='/add-event/<%= event_data._id %>' method="post">
-                <button type="submit" class="btn btn-success">Participate to event</button>
-            </form>
-            <% } %>
-            <p>Are you done? <a href="/profile">Go back</a></p>
+            <%= event_data.categories %>-->
+            <span style="font-size: 50px; margin-top: 1%;"><b>Marathon for charity</b></span><br>
+            <span style="font-size: 30px; font-family: Segoe UI Light; margin-left: 10px;">Central Park, New York</span><br>
+            <span style="font-size: 20px; font-family: Segoe UI Light; margin-left: 12px;">23rd October, 12:00 AM</span><br><br>
+            <p style="font-size: 20px, font-family: Segoe UI Light; color: gray; margin-left: 12px; margin-right: 10%; text-align: justify">The marathon is a long-distance race with an official distance of 42.195 kilometres[1] (approximately 26 miles 385 yards), usually run as a road race. The event was instituted in commemoration of the fabled run of the Greek soldier Pheidippides, a messenger from the Battle of Marathon to Athens, who reported the victory. The marathon can be completed by running or with a run/walk strategy. There are also wheelchair divisions. 
+                    The marathon was one of the original modern Olympic events in 1896, though the distance did not become standardized until 1921. More than 800 marathons are held throughout the world each year, with the vast majority of competitors being recreational athletes, as larger marathons can have tens of thousands of participants.</p><br>
+            
+            
+            <span style="font-size: 20px; color: red; margin-left: 18px;"> From <b>120$ </b></span>
+            <div style="margin-left: 15px;">
+                <% if (userAlreadyGoing) { %>
+                <form action='/remove-event/<%= event_data._id %>' method="post">
+                    <button type="submit" class="btn btn-danger">Leave event</button>
+                </form>
+                <% } else { %>
+                <form action='/add-event/<%= event_data._id %>' method="post">
+                    <button type="submit" class="btn btn-primary">Participate to event</button>
+                </form>
+                <% } %>
+                <p>Are you done? <a href="/profile">Go back</a></p>
+            </div>
         </div>
+    </div>
+
+    <h2 style="margin: 1%; margin-top:3%; margin-left:2%">Similar events</h2>
+    <div class="owl-carousel owl-theme tile_list">
+        <% for (var i = 0; i < 5; i++) { %>
+            <form action='/event' onclick="Event_tile_clicked(this)" method="get">
+                <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
+                        rgba(0,0, 0, 0), 90%,
+                        rgba(0, 0, 0, 0.7) 100%), url('Signup.png');">
+                    <div style="height:100%; position:relative;">
+                        <div style="height:10%; position:absolute; bottom:1%; left:2%;"><b>event_list></b></div>
+                    </div>
+             </div>
+            </form>
+        <% } %>
     </div>
 </body>
