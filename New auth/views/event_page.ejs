@@ -18,7 +18,7 @@
 
     <style>
         body {
-            font-family: 'Segoe UI';
+            font-family: 'Helevetica';
             background-color: #d8d8d8;
         }
 
@@ -149,10 +149,39 @@
             color: white;
             cursor: pointer;
         }
+
+
+
+        /* Interested - not Interested*/
+        .interested_c {
+            font-size: 12px;
+            color: #494949 !important;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 15px;
+            padding: 2%;
+            border: 1px solid #494949 !important;
+            display: inline-block;
+            transition: all 0.2;
+            margin: 1.5%;
+        }
+
+        .interested_c:hover {
+            cursor: pointer;
+            color: #ffffff !important;
+            background: #f6b93b;
+            border-color: #f6b93b !important;
+            transition: all 0.2s ease 0s;
+        }
+        .not:hover {
+             background: red;
+            border-color: red !important;
+        }
     </style>
 
     <script>
-$(document).ready(function(){
+        $(document).ready(function(){
             $('.owl-carousel').owlCarousel({
                 loop:true,
                 margin:10,
@@ -233,24 +262,21 @@ $(document).ready(function(){
     </script>
     </div>
    
-    <div class="row">
+    <div class="row" style="width: 100%">
         <div class="col-sm-12 col-md-12 col-lg-6" style="text-align: center; margin-top: 3%">
             <center><img src="../<%= event_data.image1 %>" style="width: 90%; box-shadow: 0px 0px 35px black; " /></center>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6" style="margin-top: 2%; padding-left: 2%; padding-right: 2%;">
-            <!--<%= event_data.name %><br>
-            <%= event_data.image1 %><br>
-            <%= event_data.location %><br>
-            <%= event_data.categories %>-->
-            <span style="font-size: 50px; margin-top: 1%;"><b>Marathon for charity</b></span><br>
-            <span style="font-size: 30px; font-family: Segoe UI Light; margin-left: 10px;">Central Park, New York</span><br>
-            <span style="font-size: 20px; font-family: Segoe UI Light; margin-left: 12px;">23rd October, 12:00 AM</span><br><br>
-            <p style="font-size: 20px, font-family: Segoe UI Light; color: gray; margin-left: 12px; margin-right: 10%; text-align: justify">The marathon is a long-distance race with an official distance of 42.195 kilometres[1] (approximately 26 miles 385 yards), usually run as a road race. The event was instituted in commemoration of the fabled run of the Greek soldier Pheidippides, a messenger from the Battle of Marathon to Athens, who reported the victory. The marathon can be completed by running or with a run/walk strategy. There are also wheelchair divisions. 
-                    The marathon was one of the original modern Olympic events in 1896, though the distance did not become standardized until 1921. More than 800 marathons are held throughout the world each year, with the vast majority of competitors being recreational athletes, as larger marathons can have tens of thousands of participants.</p><br>
+        <div class="container">
+            <p style="font-size: 50px; margin-top: 1%;"><b><%= event_data.name %></b></p>
+            <p style="font-size: 30px; font-family: Segoe UI Light; margin-left: 10px;"><%= event_data.location %>, <%= event_data.city %></p>
+            <p style="font-size: 20px; font-family: Segoe UI Light; margin-left: 12px;">23rd October, <%= event_data.hour %> AM</p><br>
+            <p style="font-size: 20px; font-family: Segoe UI Light; color: gray; margin-left: 12px; margin-right: 10%; text-align: justify"><%= event_data.description %></p><br>
             
             
             <span style="font-size: 20px; color: red; margin-left: 18px;"> From <b>120$ </b></span>
-            <div style="margin-left: 15px;">
+            <div class="row" style="margin-left: 5px;">
+                <div class="col-sm-6 col-md-6 col-lg-6">
                 <% if (userAlreadyGoing) { %>
                 <form action='/remove-event/<%= event_data._id %>' method="post">
                     <button type="submit" class="btn btn-danger">Leave event</button>
@@ -260,8 +286,13 @@ $(document).ready(function(){
                     <button type="submit" class="btn btn-primary">Participate to event</button>
                 </form>
                 <% } %>
-                <p>Are you done? <a href="/profile">Go back</a></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="button_cont" align="center"><p class="interested_c" rel="nofollow noopener">Interested</p>&nbsp<p class="not interested_c" rel="nofollow noopener">Not Interested</p></div>
+                <div class="button_cont" align="center"></div>
+                </div>
             </div>
+        </div>
         </div>
     </div>
 
