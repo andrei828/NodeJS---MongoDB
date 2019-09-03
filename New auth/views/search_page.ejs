@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+<head>
+    <title>Search Website</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Important Owl stylesheet -->
+    <link rel="stylesheet" href="../owl.carousel.min.css">
+    <!-- Default Theme -->
+    <link rel="stylesheet" href="../owl.theme.default.min.css">
+    
+    <!--  jQuery 1.7+  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Include js plugin -->
+    <script src="../owl.carousel.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI';
+            background-color: #d8d8d8;
+        }
+
+        .item {
+            background-size: cover;
+            margin: 2em;
+            height: 250px;
+            color: white;
+            z-index: 15;
+            transition: transform 0.4s;
+            box-shadow: 0px 0px 5px gray;
+        }
+
+        .tile_text {
+            position: absolute;
+            margin-left: 2%;
+            text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+        }
+
+        .item:hover {    
+            cursor: pointer;        
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px gray;
+            
+        }
+
+        #open_review_button {
+            cursor: pointer;
+            width: 60px;
+            -webkit-filter: drop-shadow(5px 5px 5px #222);
+            filter: drop-shadow(5px 5px 5px #222);
+            position: fixed;
+            right: 2em;
+            bottom: 3em;
+            z-index: 500;
+            transition: transform 0.3s;
+        }
+
+        #open_review_button:hover {
+            transform: scale(1.15);
+        }
+
+        .review {
+            display: none;
+            width: 300px;
+            position: fixed;
+            right: 2em;
+            bottom: 3em;
+            box-shadow: 0px 0px 25px gray;
+            border-radius: 15px;
+            padding: 1em;
+            z-index: 400;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .rating {
+            position: relative;
+            margin-right: 55px;
+            margin-bottom: 25px;
+        }
+
+        /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+        follow these rules. Every browser that supports :checked also supports :not(), so
+        it doesn’t make the test unnecessarily selective */
+        .rating:not(:checked) > input {
+            position:absolute;
+            top:-9999px;
+        }
+
+        .rating:not(:checked) > label {
+            float:right;
+            width:1em;
+            padding:0 .1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:200%;
+            line-height:1.2;
+            color:#959595;
+            
+        }
+
+        .rating:not(:checked) > label:before {
+            content: '★ ';
+        }
+
+        .rating > input:checked ~ label {
+            color: #f70;
+            
+        }
+
+        .rating:not(:checked) > label:hover,
+        .rating:not(:checked) > label:hover ~ label {
+            color: gold;
+            
+        }
+
+        .rating > input:checked + label:hover,
+        .rating > input:checked + label:hover ~ label,
+        .rating > input:checked ~ label:hover,
+        .rating > input:checked ~ label:hover ~ label,
+        .rating > label:hover ~ input:checked ~ label {
+            color: #ea0;
+            
+        }
+
+        .rating > label:active {
+            position:relative;
+            top:2px;
+            left:2px;
+        }
+
+        /* navigation bar */
+        .navigation-bar {
+            background-color: #323232; 
+            color: white;
+            font-family: Helvetica; 
+        }
+        .left-side {
+            display: inline-block;
+        }
+        .right-side {
+            float: right;
+        }
+        .dropdown-item:hover {
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+        }
+
+
+        /* Interested - not Interested*/
+        .interested_c {
+            font-size: 12px;
+            color: #494949 !important;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 15px;
+            padding: 2%;
+            border: 1px solid #494949 !important;
+            display: inline-block;
+            transition: all 0.2;
+            margin: 1.5%;
+            padding-left: 4%;
+            padding-right: 4%;
+        }
+
+        .interested_c:hover {
+            cursor: pointer;
+            color: #ffffff !important;
+            background: #f6b93b;
+            border-color: #f6b93b !important;
+            transition: all 0.2s ease 0s;
+        }
+        .not:hover {
+            background: red;
+            border-color: red !important;
+        }
+
+        .categ {
+            font-size: 12px;
+            color: #494949 !important;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 15px;
+            padding: 2%;
+            border: 1px solid #494949 !important;
+            display: inline-block;
+            transition: all 0.2;
+            margin: 1.5%;
+        }
+
+        .categ:hover {
+            cursor: pointer;
+            color: black !important;
+            background: white;
+            border-color: #f6b93b !important;
+            transition: all 0.2s ease 0s;
+        }
+
+        /* search bar */
+        .form_search{
+            position: relative;
+            display: inline-block;
+            margin-top: 2%;
+            transition: all 0.5s;
+            width: 350px;
+            height: 50px;
+            background: white;
+            box-sizing: border-box;
+            border-radius: 25px;
+            border: 4px solid white;
+            padding: 5px;
+        }
+
+        .input_search {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 42.5px;
+            line-height: 30px;
+            outline: 0;
+            border: 0;
+            
+            font-size: 1em;
+            border-radius: 20px;
+            padding: 0 20px;
+        }
+
+        .fa{
+            box-sizing: border-box;
+            padding: 10px;
+            width: 42.5px;
+            height: 42.5px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 50%;
+            color: #07051a;
+            text-align: center;
+            font-size: 1.2em;
+            transition: all 0.5s;
+        }
+
+        .form_search:hover{
+            
+            width: 350px;
+            cursor: pointer;
+        }
+
+        .form_search:hover input{
+            display: block;
+        }
+
+        .form_search:hover .fa{
+            background: #07051a;
+            color: white;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            $('.owl-carousel').owlCarousel({
+                loop:false,
+                margin:10,
+                dots: false,
+                autoHeight: true,
+                responsive:{
+                    0:{
+                        items:2
+                    },
+                    600:{
+                        items:2
+                    },
+                    1000:{
+                        items: 4
+                    }
+                }
+            })
+        });
+    </script>
+</head>
+
+<body>
+        <div class="navigation-bar">
+                <!--https://hookagency.com/website-color-schemes-->
+                <div class="left-side">
+                    
+                    <img src="upl-1566734376984.png" width="50px" height="50px" style="margin: 15px; margin-left: 25px; margin-right: 30px">
+                    <span class="menu-item" style="margin-right: 15px; cursor: pointer;">Home</span>
+                    <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><b>Events</b></span>
+                    <span class="menu-item" style="margin-right: 15px; cursor: pointer;">About</span>
+                    <span class="menu-item" style="margin-right: 15px; cursor: pointer;">Support</span>
+                </div>
+                <div class="right-side dropdown">
+                    <span>Hi, Andrew!</span>
+                    <img src="Draft_landing_page.png" class="dropdown-toggle" data-toggle="dropdown" width="50px" height="50px" style="border-radius: 30px; margin: 15px; opacity: 1; cursor: pointer;">
+                    
+                    <div class="dropdown-menu" style="margin: 10px; text-align: center">
+                        <p class="dropdown-item">My profile</p>
+                        <p class="dropdown-item">Upcoming</p>
+                        <p class="dropdown-item">History</p>
+                        <p class="dropdown-item">Sign out</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Review div -->
+            <img src="review_icon.png" id="open_review_button" onclick="open_review_div(this)"/>
+            <div class="review">
+            <p style="text-align: center">Please rate your experience</p>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5" onclick="func(this)"/><label for="star5" title="Rocks!">5 stars</label>
+                <input type="radio" id="star4" name="rating" value="4" onclick="func(this)"/><label for="star4" title="Pretty good">4 stars</label>
+                <input type="radio" id="star3" name="rating" value="3" onclick="func(this)"/><label for="star3" title="Meh">3 stars</label>
+                <input type="radio" id="star2" name="rating" value="2" onclick="func(this)"/><label for="star2" title="Kinda bad">2 stars</label>
+                <input type="radio" id="star1" name="rating" value="1" onclick="func(this)"/><label for="star1" title="Sucks big time">1 star</label>
+            </div>
+            <div class="form-group">
+                <textarea type="text" class="form-control" name="review_comment" rows="4" style="resize: none;" placeholder="Leave a review..."></textarea>
+            </div>
+            <center>
+                <button class="btn btn-success" style="margin-right:10px;">Submit</button>
+                <button class="btn btn-danger" style="margin-left:10px;" onclick="close_review_div()">Cancel</button>
+            </center>
+            
+            <script>
+                function func(element) {
+                   // alert(element.value);
+                }
+            </script>
+            </div>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        
+        <center><form class="form_search">
+            <input class="input_search" type="search" placeholder="Search for events...">
+            <i class="fa fa-search"></i>
+        </form></center>
+
+        <div class="owl-carousel owl-theme tile_list" style="margin-top: 2%">
+            <form action='/event/' onclick="Event_tile_clicked(this)" method="get">
+                <div class="item" style="background-image: linear-gradient(to bottom, 
+                        rgba(0,0, 0, 0), 90%,
+                        rgba(0, 0, 0, 0.7) 100%), url('upl-1567435538766.jpg');">
+                    
+                    <div style="height:100%; position:relative;">
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b>ent_list.length - i - 1].date</b></p>
+                    </div>
+                </div>
+            </form>
+            <form action='/event/' onclick="Event_tile_clicked(this)" method="get">
+                <div class="item" style="background-image: linear-gradient(to bottom, 
+                        rgba(0,0, 0, 0), 90%,
+                        rgba(0, 0, 0, 0.7) 100%), url('upl-1567435538766.jpg');">
+                    
+                    <div style="height:100%; position:relative;">
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b>ent_list.length - i - 1].date</b></p>
+                    </div>
+                </div>
+            </form>
+            <form action='/event/' onclick="Event_tile_clicked(this)" method="get">
+                <div class="item" style="background-image: linear-gradient(to bottom, 
+                        rgba(0,0, 0, 0), 90%,
+                        rgba(0, 0, 0, 0.7) 100%), url('upl-1567435538766.jpg');">
+                    
+                    <div style="height:100%; position:relative;">
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b>ent_list.length - i - 1].date</b></p>
+                    </div>
+                </div>
+            </form>
+            <form action='/event/' onclick="Event_tile_clicked(this)" method="get">
+                <div class="item" style="background-image: linear-gradient(to bottom, 
+                        rgba(0,0, 0, 0), 90%,
+                        rgba(0, 0, 0, 0.7) 100%), url('upl-1567435538766.jpg');">
+                    
+                    <div style="height:100%; position:relative;">
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b>ent_list.length - i - 1].date</b></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+   </body>
+</html>

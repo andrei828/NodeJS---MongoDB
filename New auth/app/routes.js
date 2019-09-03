@@ -39,7 +39,7 @@ module.exports = function(app, passport) {
             console.log(req.files[0]);
 
             // query relative events by categories
-            Event.findOne({},function(err,data){
+            Event.findOne({},function(err,data) {
                 var event = new Event({
                     name: req.body.name,
                     city: req.body.city,
@@ -80,6 +80,12 @@ module.exports = function(app, passport) {
                 user: req.user,
                 event_list: events
             });
+        });
+    });
+
+    app.get('/search', isLoggedIn, (req, res) => {
+        res.render('search_page.ejs', {
+            user: req.user
         });
     });
 

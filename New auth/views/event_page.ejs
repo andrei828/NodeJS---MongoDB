@@ -18,7 +18,7 @@
 
     <style>
         body {
-            font-family: 'Helevetica';
+            font-family: 'Segoe UI';
             background-color: #d8d8d8;
         }
 
@@ -165,6 +165,8 @@
             display: inline-block;
             transition: all 0.2;
             margin: 1.5%;
+            padding-left: 4%;
+            padding-right: 4%;
         }
 
         .interested_c:hover {
@@ -175,8 +177,30 @@
             transition: all 0.2s ease 0s;
         }
         .not:hover {
-             background: red;
+            background: red;
             border-color: red !important;
+        }
+
+        .categ {
+            font-size: 12px;
+            color: #494949 !important;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 15px;
+            padding: 2%;
+            border: 1px solid #494949 !important;
+            display: inline-block;
+            transition: all 0.2;
+            margin: 1.5%;
+        }
+
+        .categ:hover {
+            cursor: pointer;
+            color: black !important;
+            background: white;
+            border-color: #f6b93b !important;
+            transition: all 0.2s ease 0s;
         }
     </style>
 
@@ -264,7 +288,15 @@
    
     <div class="row" style="width: 100%">
         <div class="col-sm-12 col-md-12 col-lg-6" style="text-align: center; margin-top: 3%">
-            <center><img src="../<%= event_data.image1 %>" style="width: 90%; box-shadow: 0px 0px 35px black; " /></center>
+            <center>
+                <br><br>
+                <img src="../<%= event_data.image1 %>" style="width: 90%; box-shadow: 0px 0px 35px black; " />
+            <br><br>
+                <% for (var i = 0; i < event_data.categories.length; i++) { %>
+                    <p class="categ" rel="follow noopener" style="padding: 1%; width: 130px;"><%= event_data.categories[i] %></p>
+                <% } %>
+                <p class="categ" rel="follow noopener" style="padding: 1%; width: 130px;"><%= event_data.categories[0] %></p>
+            </center>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6" style="margin-top: 2%; padding-left: 2%; padding-right: 2%;">
         <div class="container">
