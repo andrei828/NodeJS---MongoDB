@@ -31,6 +31,9 @@
                             items:2.2
                         },
                         1000:{
+                            items: 3.2
+                        },
+                        1300:{
                             items: 4.2
                         }
                     }
@@ -66,6 +69,7 @@
             min-width: 200px;
             transition: transform 0.4s;
             box-shadow: 0px 0px 5px gray;
+            clear: both;
         }
 
         .tile_text {
@@ -254,17 +258,23 @@
         <div class="left-side">
             
             <img src="upl-1566734376984.png" width="50px" height="50px" style="margin: 15px; margin-left: 25px; margin-right: 30px">
-            <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><b>Home</b></span>
+            <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/profile" style="color: white"><b>Home</b></a></span>
             <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/search" style="color: white">Events</a></span>
-            <span class="menu-item" style="margin-right: 15px; cursor: pointer;">About</span>
-            <span class="menu-item" style="margin-right: 15px; cursor: pointer;">Support</span>
+            <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/about" style="color: white">About</a></span>
+            <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/support" style="color: white">Support</a></span>
         </div>
         <div class="right-side dropdown">
                 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-            <form class="form_search">
-                <input class="input_search" type="search">
-                <i class="fa fa-search"></i>
+            <form class="form_search" action="/search-events" method="get">
+                <input class="input_search" name="search" type="search" placeholder="Search for events...">
+                <i class="fa fa-search" onclick="search_events()"></i>
+                <script>
+                function search_events() {
+                    
+                    document.getElementsByClassName("form_search")[0].submit();
+                }
+            </script>
             </form>
             <span>Hi, Andrew!</span>
             <img src="Draft_landing_page.png" class="dropdown-toggle" data-toggle="dropdown" width="50px" height="50px" style="border-radius: 30px; margin: 15px; opacity: 1; cursor: pointer;">
@@ -303,50 +313,7 @@
     </script>
     </div>
 
-<!--<div class="container">
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
-
-    <div class="row">-->
-    
-    <!-- LOCAL INFORMATION -->
-<!--        <div class="well">
-            
-            <% for (var i = 0; i < event_list.length; i++) { %>
-                <form action='/event/<%= event_list[i]._id %>' method="get" style="display: inline-block; position: relative">
-                    <button type="submit" class="btn btn-warning btn-lg">
-                        <%= event_list[i].name %>
-                    </button>
-                </form>
-            <% } %>
-            <h3><span class="fa fa-user"></span> Local</h3>
-
-            <% if (user.email) { %>
-                <p>
-                    <strong>id</strong>: <%= user._id %><br>
-                    <strong>email</strong>: <%= user.email %><br>
-                    <strong>password</strong>: <%= user.password %><br>
-                    <strong>firstname</strong>: <%= user.firstname %><br>
-                    <strong>secondname</strong>: <%= user.secondname %><br>
-                    <strong>city</strong>: <%= user.city %><br>
-                    <strong>city</strong>: <%= user.categories %><br>
-                    <img src="<%= user.image %>" />
-                </p>
-                
-                <a href="/unlink/local" class="btn btn-default">Unlink</a>
-            <% } else { %>
-                <a href="/connect/local" class="btn btn-default">Connect Local</a>
-            <% } %>
-
-        </div>
-    </div>
-
-
-</div>
--->
 
 <img src="first_billboard.jpg" style="width: 100%; box-shadow: 0px 0px 35px black; cursor: pointer;"/>
     <h2 style="margin: 1%; margin-top:3%; margin-left:2%">Recommended for you</h2>

@@ -239,7 +239,7 @@
     <script>
         $(document).ready(function(){
             $('.owl-carousel').owlCarousel({
-                loop:false,
+                loop: true,
                 margin:10,
                 dots: false,
                 autoHeight: true,
@@ -334,24 +334,62 @@
                 }
             </script>
         </form></center>
-        <% var rows = event_list.length / 3;%>
-        <% for (var j = 0; j < rows; j++) { %>
-            <% var cols = Math.min(event_list.length - rows, 3) %>
-        <div class="owl-carousel owl-theme tile_list" style="margin-top: 2%">
-            <% for (var i = 0; i < cols; i++) { %>
-            <form action='/event/<%= event_list[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
-                <div class="item" style="background-image: linear-gradient(to bottom, 
-                        rgba(0,0, 0, 0), 90%,
-                        rgba(0, 0, 0, 0.7) 100%), url('<%= event_list[i].image1 %>');">
-                    
-                    <div style="height:100%; position:relative;">
-                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= event_list[i].name %>, <%= event_list[i].date %></b></p>
+        
+        <h2 style="margin: 1%; margin-left:2%">Social events</h2>
+        <div class="owl-carousel owl-theme tile_list">
+            <% for (var i = 0; i < social_events.length; i++) { %>
+                <form action='/event/<%= social_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
+                    <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
+                            rgba(0,0, 0, 0), 90%,
+                            rgba(0, 0, 0, 0.7) 100%), url('<%= social_events[i].image1 %>');">
+                        <div style="height:100%; position:relative;">
+                            <p style="position:absolute; bottom:-10px; left:2%;"><b><%= social_events[i].name %>, <%= social_events[i].date %></b></p>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
             <% } %>
         </div>
-        <% } %>
-        
+        <h2 style="margin: 1%; margin-left:2%">Concerts</h2>
+        <div class="owl-carousel owl-theme tile_list">
+            <% for (var i = 0; i < concert_events.length; i++) { %>
+                <form action='/event/<%= concert_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
+                    <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
+                            rgba(0,0, 0, 0), 90%,
+                            rgba(0, 0, 0, 0.7) 100%), url('<%= concert_events[i].image1 %>');">
+                        <div style="height:100%; position:relative;">
+                            <p style="position:absolute; bottom:-10px; left:2%;"><b><%= concert_events[i].name %>, <%= concert_events[i].date %></b></p>
+                        </div>
+                    </div>
+                </form>
+            <% } %>
+        </div>
+        <h2 style="margin: 1%; margin-left:2%">Sports</h2>
+        <div class="owl-carousel owl-theme tile_list">
+            <% for (var i = 0; i < sports_events.length; i++) { %>
+                <form action='/event/<%= sports_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
+                    <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
+                            rgba(0,0, 0, 0), 90%,
+                            rgba(0, 0, 0, 0.7) 100%), url('<%= sports_events[i].image1 %>');">
+                        <div style="height:100%; position:relative;">
+                            <p style="position:absolute; bottom:-10px; left:2%;"><b><%= sports_events[i].name %>, <%= sports_events[i].date %></b></p>
+                        </div>
+                    </div>
+                </form>
+            <% } %>
+        </div>
+        <h2 style="margin: 1%; margin-left:2%">Art</h2>
+        <div class="owl-carousel owl-theme tile_list">
+            <% for (var i = 0; i < art_events.length; i++) { %>
+                <form action='/event/<%= art_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
+                    <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
+                            rgba(0,0, 0, 0), 90%,
+                            rgba(0, 0, 0, 0.7) 100%), url('<%= art_events[i].image1 %>');">
+                        <div style="height:100%; position:relative;">
+                            <p style="position:absolute; bottom:-10px; left:2%;"><b><%= art_events[i].name %>, <%= art_events[i].date %></b></p>
+                        </div>
+                    </div>
+                </form>
+            <% } %>
+        </div>
    </body>
 </html>

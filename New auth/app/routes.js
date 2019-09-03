@@ -84,9 +84,38 @@ module.exports = function(app, passport) {
     });
 
     app.get('/search', isLoggedIn, (req, res) => {
-        res.render('search_page.ejs', {
-            user: req.user
+        db_service.get_by_category_from_db("social", (social_ev) => {
+            db_service.get_by_category_from_db("concert", (concert_ev) => {
+                db_service.get_by_category_from_db("sports", (sports_ev) => {
+                    db_service.get_by_category_from_db("art", (art_ev) => {
+                        res.render('search_main_page.ejs', {
+                            user: req.user,
+                            social_events: social_ev,
+                            concert_events: concert_ev,
+                            sports_events: sports_ev,
+                            art_events: art_ev
+                        });
+                    });
+                });
+            });
         });
+    });
+
+    app.get('/search-events', isLoggedIn, (req, res) => {
+        console.log(req.query.search);
+        db_service.get_events_by_search(req.query.search, (result_ev) => {
+            console.log(result_ev)
+            res.render("search_page", {
+                user: req.user,
+                event_list: result_ev
+            });
+        });
+    });
+
+    app.get('/support', isLoggedIn, (req, res) => {
+        res.render('support_page', {
+            user: req.user
+        })
     });
 
     app.get('/event/:event_id', isLoggedIn, (req, res) => {

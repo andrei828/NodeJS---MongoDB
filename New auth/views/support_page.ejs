@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Support</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Important Owl stylesheet -->
+    <link rel="stylesheet" href="owl.carousel.min.css">
+    <!-- Default Theme -->
+    <link rel="stylesheet" href="owl.theme.default.min.css">
+    
+    <!--  jQuery 1.7+  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Include js plugin -->
+    <script src="owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.owl-carousel').owlCarousel({
+                    loop:true,
+                    margin:10,
+                    dots: false,
+                    autoHeight: true,
+                    responsive:{
+                        0:{
+                            items:2.2
+                        },
+                        600:{
+                            items:2.2
+                        },
+                        1000:{
+                            items: 3.2
+                        },
+                        1300:{
+                            items: 4.2
+                        }
+                    }
+                })
+            });
+
+        function Event_tile_clicked(element) {
+            element.submit();
+        }
+
+        function open_review_div(review_icon) {
+            review_icon.style.display = "none";
+            document.getElementsByClassName("review")[0].style.display = "block";
+        }
+
+        function close_review_div() {
+            document.getElementsByClassName("review")[0].style.display = "none";
+            document.getElementById('open_review_button').style.display = "block";
+        }
+
+        function Post_Message_Local()
+			{
+				var text = document.getElementById("textarea").value;	
+				var app = document.getElementById("listmsg");
+				var li = document.createElement("li");
+				var div = document.createElement("div");
+				div.classList.add("rightmessage");
+				div.innerHTML = text;
+				li.appendChild(div);
+				app.appendChild(li);
+				document.getElementById("textarea").value = "";
+				$('.background').animate({ scrollTop: $(app).height()}, 'slow');
+			}
+
+			function Post_Message(text)
+			{
+				var app = document.getElementById("listmsg");
+				var li = document.createElement("li");
+				var div = document.createElement("div");
+				div.classList.add("rightmessage");
+				div.innerHTML = text;
+				li.appendChild(div);
+				app.appendChild(li);
+				$('.background')[0].scrollTop = $(app).height()
+			}
+
+			function Get_Message(text)
+			{
+				var app = document.getElementById("listmsg");
+				var li = document.createElement("li");
+				var div = document.createElement("div");
+				div.classList.add("leftmessage");
+				div.innerHTML = text + "<br>";
+				li.appendChild(div);
+				app.appendChild(li);
+				$('.background')[0].scrollTop = $(app).height()
+			}
+    </script>
+		<style>
+			body {
+                font-family: 'Segoe UI';
+                background-color: #d8d8d8;
+            }
+
+			::-webkit-scrollbar { 
+			    display: none; 
+			}
+				
+			.btn2 {
+				border-radius: 15px;
+			}
+
+			.span_mess {
+				font-weight: bold;
+				float: right; 
+				margin-right: 3%; 
+				color: white; 
+				margin-top: 2%;
+			}
+
+			.signspan {
+				color: white;
+				font-size: 130%;
+				position: absolute;
+				right: 3%;
+				top: 3%;
+				z-index: 1;	
+				transition: 0.2s;
+			}
+
+			.signspan:hover {
+				transform: scale(1.2);
+				cursor: pointer;
+				transition: 0.2s;
+			}
+
+			.message {
+				text-align: left;
+				margin-top: 5%;
+				padding: 6%;
+				border-bottom: 1px solid #fff;
+				font-family: serif;
+				font-size: 150%;
+			}	
+
+			.message:hover {
+				cursor: pointer;
+				background-color: #111010;
+			}
+
+			#side-menu {
+				position: fixed;
+				display: inline-block;
+				margin-left: -20%;
+				width: 20%;
+				color: white;
+				background-color: black;
+				height: 100%;
+				transition: 0.3s;
+			}
+
+			#container {
+				position: relative;
+				margin-left: 0%;
+				transition: 0.3s;
+
+			}
+
+			#contact:hover {
+				box-shadow: inset 0 0 0 4px #000000;
+				cursor: pointer;
+				transition: 0.3s
+			}
+
+			/* BURGER */
+			#burger-img {
+				display: inline-block;
+				max-width: 60px;
+				margin-left: 2%;
+				margin-top: 15%;
+				transition: 0.2s;
+			}
+
+			#burger-btn {
+				background: none; 
+				border: none;
+			}
+
+			#burger-btn:focus {
+				outline: 0;
+			}
+
+			#burger-img:hover {
+				transition: 0.2s;
+				transform: scale(1.2);
+			}
+
+			/* END BURGER */
+
+			#title {
+				font-size: 450%; 
+				color: white;
+				font-family: serif;
+				text-align: center;
+				position: relative;
+				left: -10%;
+				transform:  translateX(50%);
+			}
+
+			#messages-field {
+				margin-top: 2%;
+				height: 100%;
+			}	
+
+			#contact {
+				width: 30%;
+				height: 20%;
+				border: 2px solid black;
+				border-radius: 15px;
+				padding: 1%;
+			}
+
+			.contacticon {
+				margin-left: 80%;
+				width: 80px;
+			}
+
+			#contactname {
+				color: white;
+				font-size: 300%;
+				font-family: serif;	
+			}
+
+			#status {
+				color: black;
+				font-size: 100%;
+				font-family: serif;
+				margin-left: 10%;
+			}
+
+			.background {
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				margin-top: 3%;
+				overflow-y: scroll;
+			}
+
+			.input {
+				position: fixed;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 50%;
+				bottom: 1%;	
+				transition: 0.2s;
+			}
+
+			.form-control {
+				border-radius: 15px;
+			}
+
+			.btn1 {
+				border-radius: 15px;
+				transition: 0.2s;
+				margin-top: 25%;
+			}
+
+			.messagelist {
+				position: absolute;
+				margin-left: 12.5%;
+				width: 60%;
+				padding-bottom: 22%;
+			}
+
+			@keyframes appear {
+				from { 
+					opacity: 0;
+					right: -20px;
+				}
+				to {  
+					opacity: 1;
+					right: 0px;
+				}
+			}
+
+			.rightmessage {
+				transition: 0.6s;
+				margin-top: 2.5%;
+				color: black;
+				position: relative;
+				width: auto; 
+				max-width: 40%;
+				min-width: 300px;
+				margin-right: -70%;
+				height: auto;
+				background-color: lightblue;
+				border-radius: 15px;
+				font-size: 130%;
+				text-align: left;
+				padding-left: 1.5%;
+				padding-right: 3%;
+				padding-top: 0.5%;
+				padding-bottom: 1%;
+				font-family: serif;
+				animation-name: appear;
+				animation-duration: 0.6s;
+				text-align: justify;
+			}
+
+			.leftmessage {
+				transition: 0.5s;
+				margin-top: 2.5%;
+				color: white;
+				position: relative;
+				width: auto;
+				max-width: 40%;
+				min-width: 300px;
+				margin-left: -20%;
+				height: auto;
+				background-color: gray;
+				border-radius: 15px;
+				font-size: 130%;
+				text-align: left;
+				padding-left: 1.5%;
+				padding-right: 3%;
+				padding-top: 0.5%;
+				padding-bottom: 1%;
+				font-family: serif;
+				animation-name: appear;
+				animation-duration: 0.8s;
+				text-align: justify;
+			}
+
+			.btn1:hover {
+				transform: scale(1.2);
+				transition: 0.2s;
+			}
+
+			ul {
+				list-style-type: none;
+			}
+
+			#search_box {
+				text-align: center;
+				border-radius: 10px;
+				width: 90%;
+				height: 30px;
+				margin-top: 9%;
+				color: black;
+				font-family: serif;
+				font-size: 130%;
+			}
+
+            #open_review_button {
+            cursor: pointer;
+            width: 60px;
+            -webkit-filter: drop-shadow(5px 5px 5px #222);
+            filter: drop-shadow(5px 5px 5px #222);
+            position: fixed;
+            right: 2em;
+            bottom: 3em;
+            z-index: 500;
+            transition: transform 0.3s;
+        }
+
+        #open_review_button:hover {
+            transform: scale(1.15);
+        }
+
+        .review {
+            display: none;
+            width: 300px;
+            position: fixed;
+            right: 2em;
+            bottom: 3em;
+            box-shadow: 0px 0px 25px gray;
+            border-radius: 15px;
+            padding: 1em;
+            z-index: 400;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .rating {
+            position: relative;
+            margin-right: 55px;
+            margin-bottom: 25px;
+        }
+
+        /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+        follow these rules. Every browser that supports :checked also supports :not(), so
+        it doesn’t make the test unnecessarily selective */
+        .rating:not(:checked) > input {
+            position:absolute;
+            top:-9999px;
+        }
+
+        .rating:not(:checked) > label {
+            float:right;
+            width:1em;
+            padding:0 .1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:200%;
+            line-height:1.2;
+            color:#959595;
+            
+        }
+
+        .rating:not(:checked) > label:before {
+            content: '★ ';
+        }
+
+        .rating > input:checked ~ label {
+            color: #f70;
+            
+        }
+
+        .rating:not(:checked) > label:hover,
+        .rating:not(:checked) > label:hover ~ label {
+            color: gold;
+            
+        }
+
+        .rating > input:checked + label:hover,
+        .rating > input:checked + label:hover ~ label,
+        .rating > input:checked ~ label:hover,
+        .rating > input:checked ~ label:hover ~ label,
+        .rating > label:hover ~ input:checked ~ label {
+            color: #ea0;
+            
+        }
+
+        .rating > label:active {
+            position:relative;
+            top:2px;
+            left:2px;
+        }
+
+        /* navigation bar */
+        .navigation-bar {
+            background-color: #323232; 
+            color: white;
+            font-family: Helvetica; 
+        }
+        .left-side {
+            display: inline-block;
+        }
+        .right-side {
+            float: right;
+        }
+        .dropdown-item:hover {
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* search bar */
+        .form_search{
+            position: absolute;
+            display: inline-block;
+           
+            transform: translate(-200%, 30%);
+            transition: all 0.5s;
+            width: 50px;
+            height: 50px;
+            background: white;
+            box-sizing: border-box;
+            border-radius: 25px;
+            border: 4px solid white;
+            padding: 5px;
+        }
+
+.input_search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    display: none;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px;
+}
+
+.fa{
+    box-sizing: border-box;
+    padding: 10px;
+    width: 42.5px;
+    height: 42.5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    color: #07051a;
+    text-align: center;
+    font-size: 1.2em;
+    transition: all 0.5s;
+}
+
+.form_search:hover{
+    transform: translate(-110%, 30%);
+    width: 200px;
+    cursor: pointer;
+}
+
+.form_search:hover input{
+    display: block;
+}
+
+.form_search:hover .fa{
+    background: #07051a;
+    color: white;
+}
+		</style>
+	</head>
+	
+	<body>	
+        <div class="navigation-bar">
+                <!--https://hookagency.com/website-color-schemes-->
+                <div class="left-side">
+                    
+                    <img src="upl-1566734376984.png" width="50px" height="50px" style="margin: 15px; margin-left: 25px; margin-right: 30px">
+                    <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/profile" style="color: white">Home</a></span>
+                    <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/search" style="color: white"><b>Events</b></a></span>
+                    <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/about" style="color: white">About</a></span>
+                    <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/support" style="color: white">Support</a></span>
+                </div>
+                <div class="right-side dropdown">
+                    <span>Hi, Andrew!</span>
+                    <img src="Draft_landing_page.png" class="dropdown-toggle" data-toggle="dropdown" width="50px" height="50px" style="border-radius: 30px; margin: 15px; opacity: 1; cursor: pointer;">
+                    
+                    <div class="dropdown-menu" style="margin: 10px; text-align: center">
+                        <p class="dropdown-item">My profile</p>
+                        <p class="dropdown-item">Upcoming</p>
+                        <p class="dropdown-item">History</p>
+                        <p class="dropdown-item">Sign out</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Review div -->
+            <img src="review_icon.png" id="open_review_button" onclick="open_review_div(this)"/>
+            <div class="review">
+            <p style="text-align: center">Please rate your experience</p>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5" onclick="func(this)"/><label for="star5" title="Rocks!">5 stars</label>
+                <input type="radio" id="star4" name="rating" value="4" onclick="func(this)"/><label for="star4" title="Pretty good">4 stars</label>
+                <input type="radio" id="star3" name="rating" value="3" onclick="func(this)"/><label for="star3" title="Meh">3 stars</label>
+                <input type="radio" id="star2" name="rating" value="2" onclick="func(this)"/><label for="star2" title="Kinda bad">2 stars</label>
+                <input type="radio" id="star1" name="rating" value="1" onclick="func(this)"/><label for="star1" title="Sucks big time">1 star</label>
+            </div>
+            <div class="form-group">
+                <textarea type="text" class="form-control" name="review_comment" rows="4" style="resize: none;" placeholder="Leave a review..."></textarea>
+            </div>
+            <center>
+                <button class="btn btn-success" style="margin-right:10px;">Submit</button>
+                <button class="btn btn-danger" style="margin-left:10px;" onclick="close_review_div()">Cancel</button>
+            </center>
+            
+            <script>
+                function func(element) {
+                   // alert(element.value);
+                }
+            </script>
+            </div>
+		<div id="container">			
+			<div id="messages-field">
+				<center>
+					<div class="background">
+						<div class="messagelist">
+							<ul id="listmsg" scrollTop = "scrollHeight">
+								<li>
+									<div class="rightmessage">
+										Lorem ipsum example message written just so.<br>
+										Ana are mere iar Nelu nu mai are mere ca le-a luat Ana
+									</div>
+
+									<div class="leftmessage">					
+										Acesta este un text exemplu si trebuie tratat ca atare <br>
+										Oice interpreaare potate fi refuzata din motive afernete <br>
+										Ultimul rand a fost scris doar pentru a vedea cum arara mesajul cu 4 randuri<br>
+										
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</center>
+			</div>
+		</div>
+		<center>
+		<div class="input">
+			<div class="row message_input">
+				<div class="col-md-11">
+		 			<textarea class="form-control form1" id="textarea" placeholder="Type your messag in here" rows="2" id="comment" style="resize: none; font-family: serif font-size:120%;"></textarea>
+		 			<script>
+		 			$('.form1').keypress(function(event){
+  						if(event.keyCode == 13){
+    						Post_Message_Local();
+  						}
+					});	
+		 			</script>
+				</div>
+				<div class="col-md-1">
+					<button type="button" class="btn btn1 btn-primary" onclick="Post_Message_Local()">
+				Send</button>	
+				</div>
+			</div>
+		</div>	
+		</center>
+	</body>
+</html>

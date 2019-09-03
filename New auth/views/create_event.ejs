@@ -242,10 +242,10 @@
         <!--https://hookagency.com/website-color-schemes-->
         <div class="left-side">
             <img src="Signup.png" width="50px" height="50px" style="margin: 15px; border-radius: 15px; margin-right: 30px">
-            <span style="margin-right: 15px; font-family: Segoe UI Bold">Home</span>
-            <span style="margin-right: 15px">Events</span>
-            <span style="margin-right: 15px">About</span>
-            <span style="margin-right: 15px">Support</span>
+            <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/profile" style="color: white">Home</a></span>
+            <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/search" style="color: white">Events</a></span>
+            <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/about" style="color: white">About</a></span>
+            <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/support" style="color: white">Support</a></span>
         </div>
         <div class="right-side dropdown">
             <span>Hi, Andrew!</span>
@@ -271,7 +271,7 @@
 					</div>
 					<div class="form-group">
 						<label>Owner</label>
-						<input style="background: transparent; border: 1px solid #323232" type="text" class="form-control" name="owner" value="<%= user.email %>">
+						<input style="background: transparent; border: 1px solid #323232" type="text" class="form-control" name="owner" value="<%= user.email %>" disabled>
 					</div>
 					<div class="form-group">
 						<label>Location</label>
