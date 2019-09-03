@@ -61,4 +61,18 @@ db_service.get_events_from_db = (callback) => {
 
 }
 
+db_service.get_by_category_from_db = (category, callback) => {
+    Event.find({"categories" : category}).limit(5).exec((err, res) => {
+        if (err) throw err;
+        callback(res);
+    });
+}
+
+db_service.get_events_by_search = (search, callback) => {
+    Event.find({"name": { $regex : ".*" + search + ".*", $options: 'i' }}, (err, res) => {
+        if (err) throw err;
+        callback(res);
+    })
+}
+
 module.exports = db_service
