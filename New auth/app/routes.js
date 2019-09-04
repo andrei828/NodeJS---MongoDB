@@ -68,6 +68,12 @@ module.exports = function(app, passport) {
 
     // END OF FILE UPLOAD TESTING
 
+    app.get('/set_rel', (req, res) => {
+        db_service.set_similar_events((status) => {
+            res.send(status);
+        })
+    })
+
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {
         res.render('index.ejs');
@@ -113,6 +119,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/support', isLoggedIn, (req, res) => {
+        console.log("support")
         res.render('support_page', {
             user: req.user
         })

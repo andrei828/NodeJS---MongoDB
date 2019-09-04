@@ -234,6 +234,13 @@
             document.getElementsByClassName("review")[0].style.display = "none";
             document.getElementById('open_review_button').style.display = "block";
         }
+
+        function price_selected(price) {
+            var prices = document.getElementsByClassName('price');
+            for (var i = 0; i < prices.length; i++)
+                prices[i].style.backgroundColor = "transparent";
+            price.style.backgroundColor = "#f6b93b";
+        }
     </script>
 </head>
 <body>
@@ -286,6 +293,34 @@
     </script>
     </div>
    
+    <div class="modal fade" id="registrymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    		<div class="modal-dialog modal-dialog-centered" role="document">
+    			<div class="modal-content">
+    				<div class="modal-header">
+    					<h5 class="modal-title" id="exampleModalLongTitle">Prices</h5>
+    						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    							<span aria-hidden="true">&times;</span>
+    						</button>
+    				</div>
+    				<div class="modal-body" align="center">  
+    					<div align="center">
+                            <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">130$</p>
+                            <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">250$</p>
+                            <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">320$</p>
+                           
+                            
+                        </div>
+
+                        <br><br>
+                        <form action='/add-event/<%= event_data._id %>' method="post" align="center">
+                            <button type="submit" class="btn btn-primary" style="padding-left:3%; padding-right: 3%">Attend event</button>
+                        </form>
+                        <br>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+
     <div class="row" style="width: 100%">
         <div class="col-sm-12 col-md-12 col-lg-6" style="text-align: center; margin-top: 3%">
             <center>
@@ -306,7 +341,7 @@
             <p style="font-size: 20px; font-family: Segoe UI Light; color: gray; margin-left: 12px; margin-right: 10%; text-align: justify"><%= event_data.description %></p><br>
             
             
-            <span style="font-size: 20px; color: red; margin-left: 18px;"> From <b>120$ </b></span>
+            <span style="font-size: 18px; color: green; margin-left: 18px; font-family: 'Segoe UI'"> From <b>120$ </b></span>
             <div class="row" style="margin-left: 5px;">
                 <div class="col-sm-6 col-md-6 col-lg-6">
                 <% if (userAlreadyGoing) { %>
@@ -314,9 +349,9 @@
                     <button type="submit" class="btn btn-danger">Leave event</button>
                 </form>
                 <% } else { %>
-                <form action='/add-event/<%= event_data._id %>' method="post">
-                    <button type="submit" class="btn btn-primary">Participate to event</button>
-                </form>
+                
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#registrymodal">Participate to event</button>
+                
                 <% } %>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">

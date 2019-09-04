@@ -75,4 +75,52 @@ db_service.get_events_by_search = (search, callback) => {
     })
 }
 
+
+
+db_service.set_similar_events = (callback) => {
+    Event.find({}, (err, res) => {
+        if (err) throw err;
+        res.forEach((item1) => {
+            item1.categories.forEach((categ) => {
+                Event.find(
+                    { "categories": categ, _id: { $ne: mongo.ObjectID(item1._id) } },
+                    (err2, res2) => { 
+                        if (err2) throw err2; 
+                        
+                        res2.forEach((item2) => {
+                            Event.updateOne(
+                                { _id: mongo.ObjectID(item1._id) },
+                                { $push: { "rel_events": item2._id } },
+                                (err3, res3) => { if (err3) throw err3;})
+                        })
+
+                    });
+            })
+        })
+    })
+        
+        console.log()
+
+
+        callback('success');
+}
+
 module.exports = db_service
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
