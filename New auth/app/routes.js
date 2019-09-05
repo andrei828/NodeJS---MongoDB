@@ -68,10 +68,21 @@ module.exports = function(app, passport) {
 
     // END OF FILE UPLOAD TESTING
 
+    // database setup rel_events
     app.get('/set_rel', (req, res) => {
         db_service.set_similar_events((status) => {
             res.send(status);
         })
+    })
+
+    app.get('/empty_rel', (req, res) => {
+        db_service.empty_rel_events((status) => {
+            res.send(status);
+        })
+    })
+
+    app.get('/limit_rel', (req, res) => {
+
     })
 
     // show the home page (will also have our login links)
@@ -108,9 +119,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/search-events', isLoggedIn, (req, res) => {
-        console.log(req.query.search);
-        db_service.get_events_by_search(req.query.search, (result_ev) => {
-            console.log(result_ev)
+        db_service.get_events_by_search(req.query.search, (result_ev) => {   
             res.render("search_page", {
                 user: req.user,
                 event_list: result_ev
@@ -119,7 +128,6 @@ module.exports = function(app, passport) {
     });
 
     app.get('/support', isLoggedIn, (req, res) => {
-        console.log("support")
         res.render('support_page', {
             user: req.user
         })
@@ -128,10 +136,24 @@ module.exports = function(app, passport) {
     app.get('/event/:event_id', isLoggedIn, (req, res) => {
         db_service.get_event_by_id(req.params.event_id, (event) => {
             db_service.check_user_event_link(req.user._id, event._id, (isLink) => {
-                res.render('event_page', {
-                    event_data: event,
-                    userAlreadyGoing: isLink
-                });
+                rel_event_list = []
+                function clbck() {
+                    res.render('event_page', {
+                        event_data: event,
+                        userAlreadyGoing: isLink,
+                        rel_events: rel_event_list
+                    });
+                };
+
+                event.rel_events.forEach((rel_event, index) => {
+                    db_service.get_rel_event_data(rel_event, (data) => {
+                        rel_event_list.push(data)
+                        if (index == event.rel_events.length - 1) {
+                            clbck()
+                        }
+                    })
+
+                })
             });
         });
     });

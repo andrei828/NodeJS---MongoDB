@@ -334,24 +334,44 @@
                 }
             </script>
         </form></center>
-        <% var rows = event_list.length / 3;%>
-        <% for (var j = 0; j < rows; j++) { %>
-            <% var cols = Math.min(event_list.length - rows, 3) %>
-        <div class="owl-carousel owl-theme tile_list" style="margin-top: 2%">
-            <% for (var i = 0; i < cols; i++) { %>
-            <form action='/event/<%= event_list[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
-                <div class="item" style="background-image: linear-gradient(to bottom, 
-                        rgba(0,0, 0, 0), 90%,
-                        rgba(0, 0, 0, 0.7) 100%), url('<%= event_list[i].image1 %>');">
-                    
-                    <div style="height:100%; position:relative;">
-                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= event_list[i].name %>, <%= event_list[i].date %></b></p>
-                    </div>
-                </div>
-            </form>
-            <% } %>
-        </div>
-        <% } %>
         
+        <% index = event_list.length %>
+        <% while (index > 2) { %>
+            <div class="owl-carousel owl-theme tile_list" style="margin-top: 2%">
+                <% for (var i = 0; i < 3; i++) { %>
+                <% element = event_list.length - index + 1 %>
+                <form action='/event/<%= event_list[element]._id %>' onclick="Event_tile_clicked(this)" method="get">
+                    <div class="item" style="background-image: linear-gradient(to bottom, 
+                            rgba(0,0, 0, 0), 90%,
+                            rgba(0, 0, 0, 0.7) 100%), url('<%= event_list[element].image1 %>');">
+                        
+                        <div style="height:100%; position:relative;">
+                            <p style="position:absolute; bottom:-10px; left:2%;"><b><%= event_list[element].name %>, <%= event_list[element].date %></b></p>
+                        </div>
+                    </div>
+                </form>
+                <% index--; %>
+                <% } %>
+            </div>
+        <% } %>  
+
+        <% if (index--) { %>
+            <div class="owl-carousel owl-theme tile_list" style="margin-top: 2%">
+                <% while (index) { %>
+                    <% element = event_list.length - index %>
+                    <form action='/event/<%= event_list[element]._id %>' onclick="Event_tile_clicked(this)" method="get">
+                        <div class="item" style="background-image: linear-gradient(to bottom, 
+                                rgba(0,0, 0, 0), 90%,
+                                rgba(0, 0, 0, 0.7) 100%), url('<%= event_list[element].image1 %>');">
+                            
+                            <div style="height:100%; position:relative;">
+                                <p style="position:absolute; bottom:-10px; left:2%;"><b><%= event_list[element].name %>, <%= event_list[element].date %></b></p>
+                            </div>
+                        </div>
+                    </form>
+                    <% index--; %>
+                <% } %>
+            </div>
+        <% } %>
    </body>
 </html>

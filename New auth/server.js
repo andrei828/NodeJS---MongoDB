@@ -50,10 +50,23 @@ clients = []
 var io = require('socket.io')(server);
 
 var request = require('request');
+var nodemailer = require('nodemailer');
 var request_as_promised = require('request-promise');
 var host = "https://teamproject3-qna.azurewebsites.net/qnamaker";
 var endpoint_key = "a5bffce1-f01b-4810-9806-c0797ccab99c";
 var route = "/knowledgebases/8cff98da-d9d6-48b1-9e21-7a70602214c6/generateAnswer";
+
+var transporter = nodemailer.createTransport({
+    host: 'smtp.office365.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    debug: true,
+    auth: {
+      user: 'admin@anungu.onmicrosoft.com',
+      pass: ''
+    }
+});
 
 var getanswer = async (question, callback) => {
 
@@ -90,6 +103,26 @@ io.on("connection", (socket) => {
             io.sockets.connected[socket.id].emit('response', response);
         });
     });
+
+    socket.on('email to', (email) => {
+        console.log(email);
+        var mailOptions = {
+            from: 'admin@anungu.onmicrosoft.com',
+            to: email,
+            subject: 'Sending email from platform',
+            text: 'That was easy!',
+            html: '<div style="background-color: gray; color: white"> <p>Join us</p></div>'
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          }); 
+        io.sockets.connected[socket.id].emit('email to', 'success');
+    })
 
     socket.on('disconnect', () => {
         for (var i = 0; i < clients.length; i++)

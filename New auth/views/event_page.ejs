@@ -15,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Include js plugin -->
     <script src="../owl.carousel.min.js"></script>
-
+    <script src = "/socket.io/socket.io.js"></script>
     <style>
         body {
             font-family: 'Segoe UI';
@@ -176,9 +176,34 @@
             border-color: #f6b93b !important;
             transition: all 0.2s ease 0s;
         }
+
         .not:hover {
             background: red;
             border-color: red !important;
+        }
+
+        .share {
+            font-size: 12px;
+            color: #494949 !important;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 15px;
+            padding: 2%;
+            margin-right: 15%;
+            border: 1px solid #494949 !important;
+            display: inline-block;
+            transition: all 0.2;
+            padding-left: 4%;
+            padding-right: 4%;
+        }
+
+        .share:hover {
+            cursor: pointer;
+            color: #ffffff !important;
+            background: #3c5b94;
+            border-color: #c4c1bd !important;
+            transition: all 0.2s ease 0s;
         }
 
         .categ {
@@ -205,6 +230,12 @@
     </style>
 
     <script>
+        var socket = io();
+
+        socket.on('response', (data) => {
+            
+        });
+
         $(document).ready(function(){
             $('.owl-carousel').owlCarousel({
                 loop:true,
@@ -224,6 +255,19 @@
                 }
             })
         });
+
+        socket.on('email to', (data) => {
+            //alert('success')
+            //$("#emailmodal").modal("hide");
+		});
+
+        function send_mail() {
+            socket.emit('email to', document.getElementById("mail_value").value);
+        }
+
+        function Event_tile_clicked(element) {
+            element.submit();
+        }
 
         function open_review_div(review_icon) {
             review_icon.style.display = "none";
@@ -266,7 +310,6 @@
             </div>
         </div>
     </div>
-
     <!-- Review div -->
     <img src="../review_icon.png" id="open_review_button" onclick="open_review_div(this)"/>
     <div class="review">
@@ -293,33 +336,51 @@
     </script>
     </div>
    
-    <div class="modal fade" id="registrymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    		<div class="modal-dialog modal-dialog-centered" role="document">
-    			<div class="modal-content">
-    				<div class="modal-header">
-    					<h5 class="modal-title" id="exampleModalLongTitle">Prices</h5>
-    						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    							<span aria-hidden="true">&times;</span>
-    						</button>
-    				</div>
-    				<div class="modal-body" align="center">  
-    					<div align="center">
-                            <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">130$</p>
-                            <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">250$</p>
-                            <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">320$</p>
-                           
-                            
-                        </div>
-
+    <div class="modal fade" id="emailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Send to email address</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body" align="center" id="mail_modal_body" style="padding: 10%;">  
+                        <input type="text" id="mail_value" style="background: transparent; border: 1px solid #323232;" class="form-control" name="email" placeholder="friend@outlook.com">
                         <br><br>
-                        <form action='/add-event/<%= event_data._id %>' method="post" align="center">
-                            <button type="submit" class="btn btn-primary" style="padding-left:3%; padding-right: 3%">Attend event</button>
-                        </form>
-                        <br>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+                        <form>
+                        <button type="submit" class="btn btn-primary" onclick="send_mail()" style="padding-left:3%; padding-right: 3%">Share event</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="modal fade" id="registrymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Prices</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body" align="center">  
+                    <div align="center">
+                        <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">130$</p>
+                        <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">250$</p>
+                        <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">320$</p>
+                    </div>
+
+                    <br><br>
+                    <form action='/add-event/<%= event_data._id %>' method="post" align="center">
+                        <button type="submit" class="btn btn-primary" style="padding-left:3%; padding-right: 3%">Attend event</button>
+                    </form>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row" style="width: 100%">
         <div class="col-sm-12 col-md-12 col-lg-6" style="text-align: center; margin-top: 3%">
@@ -337,9 +398,15 @@
         <div class="container">
             <p style="font-size: 50px; margin-top: 1%;"><b><%= event_data.name %></b></p>
             <p style="font-size: 30px; font-family: Segoe UI Light; margin-left: 10px;"><%= event_data.location %>, <%= event_data.city %></p>
-            <p style="font-size: 20px; font-family: Segoe UI Light; margin-left: 12px;">23rd October, <%= event_data.hour %> AM</p><br>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <p style="font-size: 20px; font-family: Segoe UI Light; margin-left: 12px;">23rd October, <%= event_data.hour %> AM</p><br> 
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <p class="share" data-toggle="modal" data-target="#emailmodal" style="float: right">Invite people</p>
+                </div>
+            </div>
             <p style="font-size: 20px; font-family: Segoe UI Light; color: gray; margin-left: 12px; margin-right: 10%; text-align: justify"><%= event_data.description %></p><br>
-            
             
             <span style="font-size: 18px; color: green; margin-left: 18px; font-family: 'Segoe UI'"> From <b>120$ </b></span>
             <div class="row" style="margin-left: 5px;">
@@ -365,13 +432,13 @@
 
     <h2 style="margin: 1%; margin-top:3%; margin-left:2%">Similar events</h2>
     <div class="owl-carousel owl-theme tile_list">
-        <% for (var i = 0; i < 5; i++) { %>
-            <form action='/event' onclick="Event_tile_clicked(this)" method="get">
+        <% for (var i = 0; i < rel_events.length; i++) { %>
+            <form action='/event/<%= rel_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
                 <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
                         rgba(0,0, 0, 0), 90%,
-                        rgba(0, 0, 0, 0.7) 100%), url('Signup.png');">
+                        rgba(0, 0, 0, 0.7) 100%), url('../<%= rel_events[i].image1 %>');">
                     <div style="height:100%; position:relative;">
-                        <div style="height:10%; position:absolute; bottom:1%; left:2%;"><b>event_list></b></div>
+                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= rel_events[i].name %>, <%= rel_events[i].date %></b></p>
                     </div>
              </div>
             </form>

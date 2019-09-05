@@ -75,34 +75,64 @@ db_service.get_events_by_search = (search, callback) => {
     })
 }
 
-
-
 db_service.set_similar_events = (callback) => {
     Event.find({}, (err, res) => {
         if (err) throw err;
         res.forEach((item1) => {
             item1.categories.forEach((categ) => {
-                Event.find(
-                    { "categories": categ, _id: { $ne: mongo.ObjectID(item1._id) } },
-                    (err2, res2) => { 
+                Event.find( { "categories": categ, _id: { $ne: mongo.ObjectID(item1._id) } })
+                     .limit(5)
+                     .exec((err2, res2) => { 
                         if (err2) throw err2; 
                         
                         res2.forEach((item2) => {
-                            Event.updateOne(
-                                { _id: mongo.ObjectID(item1._id) },
-                                { $push: { "rel_events": item2._id } },
-                                (err3, res3) => { if (err3) throw err3;})
+                            Event.findOne( { _id: mongo.ObjectID(item1._id)}, (err3, res3) => {
+                                if (res3.rel_events.length < 5) {
+                                    Event.updateOne(
+                                        { _id: mongo.ObjectID(res3._id) },
+                                        { $push: { "rel_events": item2._id } },
+                                        (err4, res4) => { if (err4) throw err4;}
+                                    )
+                                }
+                            })
                         })
-
                     });
             })
         })
     })
-        
-        console.log()
+    callback('success');
+}
 
+db_service.limit_rel_events = (callback) => {
+    Event.find({}, (err, res) => {
+        res.forEach((event) => {
+            if (event.rel_events.length > 5) {
+                
+            }
+        })
+    })
+}
 
-        callback('success');
+db_service.get_rel_event_data = (event_id, callback) => {
+    Event.findOne({ _id: mongo.ObjectID(event_id)}, (err, res) => {
+        if (err) throw err;
+        callback(res);    
+    })
+}
+
+db_service.empty_rel_events = (callback) => {
+    Event.find({}, (err, res) => {
+        if (err) throw err;
+
+        res.forEach((event) => {
+            Event.updateOne(
+                { _id: mongo.ObjectID(event._id) },
+                { "rel_events": [] },
+                (err2, res2) => { if (err2) throw err2; }
+            )
+        })
+    })
+    callback('Done');
 }
 
 module.exports = db_service
