@@ -123,13 +123,6 @@ module.exports = function(app, passport) {
                 })
             })
         })
-        
-        /*db_service.get_events_from_db((events) => {
-            res.render('profile.ejs', {
-                user: req.user,
-                event_list: events
-            });
-        });*/
     });
 
     app.get('/search', isLoggedIn, (req, res) => {
@@ -174,7 +167,7 @@ module.exports = function(app, passport) {
                         user: req.user,
                         event_data: event,
                         userAlreadyGoing: isLink,
-                        rel_events: rel_event_list
+                        rel_events: rel_event_list,
                     });
                 };
 

@@ -232,7 +232,6 @@
 
     <script>
         var socket = io();
-
         $(document).ready(function(){
             $('.owl-carousel').owlCarousel({
                 loop:true,
@@ -451,7 +450,29 @@
                 <% } %>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
-                    <div class="button_cont" align="center"><p class="interested_c" id="interested_btn" onclick="interested_clicked()" rel="nofollow noopener">Interested</p>&nbsp<p class="not interested_c" id="not_interested_btn" onclick="not_interested_clicked()" rel="nofollow noopener">Not Interested</p></div>
+                    <div class="button_cont" align="center">
+                        <% var interest = false %>
+                        <% for (var i = 0; i < user.interested.length; i++) { %>
+                        <%     if (user.interested[i].toString() === event_data._id.toString()) { %>
+                        <p class="interested_c" id="interested_btn" onclick="interested_clicked()" style="background-color:#f6b93b; color: white" rel="nofollow noopener">Interested</p>&nbsp
+                        <p class="not interested_c" id="not_interested_btn" onclick="not_interested_clicked()" rel="nofollow noopener">Not Interested</p>
+                        <%    interest = true;  %>
+                        <%    break; %>
+                        <%    } %>
+                        <% } %>
+                        <% for (var i = 0; i < user.not_interested.length; i++) { %>
+                        <%     if (user.not_interested[i].toString() === event_data._id.toString()) { %>
+                        <p class="interested_c" id="interested_btn" onclick="interested_clicked()" rel="nofollow noopener">Interested</p>&nbsp
+                        <p class="not interested_c" id="not_interested_btn" onclick="not_interested_clicked()" style="background-color:red; color: white" rel="nofollow noopener">Not Interested</p>
+                        <%    interest = true; %>
+                        <%    break; %>
+                        <%    } %>
+                        <% } %>
+                        <% if (!interest) { %>
+                        <p class="interested_c" id="interested_btn" onclick="interested_clicked()" rel="nofollow noopener">Interested</p>&nbsp
+                        <p class="not interested_c" id="not_interested_btn" onclick="not_interested_clicked()" rel="nofollow noopener">Not Interested</p>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
