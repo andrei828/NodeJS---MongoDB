@@ -81,8 +81,10 @@ module.exports = function(app, passport) {
         })
     })
 
-    app.get('/limit_rel', (req, res) => {
-
+    app.get('/set_currency_random', (req, res) => {
+        db_service.set_currency_random((status) => {
+            res.send(status);
+        })
     })
 
     // show the home page (will also have our login links)
@@ -90,14 +92,44 @@ module.exports = function(app, passport) {
         res.render('index.ejs');
     });
 
+    function get_date_today() {
+        var date_bad_format = new Date();
+        var date_good_format = date_bad_format.getFullYear() + '-'
+
+        if (date_bad_format.getMonth() < 9) date_good_format += '0'
+        date_good_format += (date_bad_format.getMonth() + 1) + '-'
+
+        if (date_bad_format.getDate() < 10) date_good_format += '0'
+        date_good_format += date_bad_format.getDate()
+
+        return date_good_format;
+    }
+
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        db_service.get_events_from_db((events) => {
+        console.log(get_date_today())
+        db_service.get_recommended_events("", (reco_ev) => {
+            db_service.get_nearby_events("Bucharest", (near_ev) => {
+                db_service.get_upcoming_events(get_date_today(), (upco_ev) => {
+                    db_service.get_by_category_from_db("concert", (conc_ev) => {
+                        res.render('profile.ejs', {
+                            user: req.user,
+                            recommended_events: reco_ev,
+                            nearby_events: near_ev,
+                            upcoming_events: upco_ev,
+                            category_events: conc_ev
+                        })
+                    })
+                })
+            })
+        })
+        
+        /*db_service.get_events_from_db((events) => {
             res.render('profile.ejs', {
                 user: req.user,
                 event_list: events
             });
-        });
+        });*/
     });
 
     app.get('/search', isLoggedIn, (req, res) => {
@@ -139,6 +171,7 @@ module.exports = function(app, passport) {
                 rel_event_list = []
                 function clbck() {
                     res.render('event_page', {
+                        user: req.user,
                         event_data: event,
                         userAlreadyGoing: isLink,
                         rel_events: rel_event_list

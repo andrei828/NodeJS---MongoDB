@@ -49,6 +49,10 @@ console.log('The magic happens on port ' + port);
 clients = []
 var io = require('socket.io')(server);
 
+var mongo = require('mongodb');
+var User = require('./app/models/user');
+var Feedback = require('./app/models/feedback');
+
 var request = require('request');
 var nodemailer = require('nodemailer');
 var request_as_promised = require('request-promise');
@@ -103,6 +107,66 @@ io.on("connection", (socket) => {
             io.sockets.connected[socket.id].emit('response', response);
         });
     });
+
+    socket.on('feedback', (feedback_array) => {
+        Feedback.create(feedback_array, (err, res) => {
+            if (err) throw err;
+        })
+    })
+
+    socket.on('interested', (add_by_id) => {
+        function add_interested() {
+            User.updateOne(
+                { _id: mongo.ObjectID(add_by_id.user_id) },
+                { $push: { interested: mongo.ObjectID(add_by_id.event_id) } },
+                (err, res) => { if (err) throw err; }
+            )
+        }
+
+        function remove_not_interested() {
+            User.updateOne(
+                { _id: mongo.ObjectID(add_by_id.user_id) },
+                { $pull: { not_interested: mongo.ObjectID(add_by_id.event_id) } },
+                (err, res) => { if (err) throw err; add_interested() }
+            )
+        }
+
+        User.findOne({ _id : mongo.ObjectID(add_by_id.user_id), not_interested: add_by_id.event_id }, (err, res) => {
+            if (err) throw err;
+
+            if (res !== undefined || res !== null)
+                remove_not_interested();
+            else 
+                add_interested()
+        })
+    })
+
+    socket.on('not_interested', (add_by_id) => {
+        function add_not_interested() {
+            User.updateOne(
+                { _id: mongo.ObjectID(add_by_id.user_id) },
+                { $push: { not_interested: mongo.ObjectID(add_by_id.event_id) } },
+                (err, res) => { if (err) throw err; }
+            )
+        }
+
+        function remove_interested() {
+            User.updateOne(
+                { _id: mongo.ObjectID(add_by_id.user_id) },
+                { $pull: { interested: mongo.ObjectID(add_by_id.event_id) } },
+                (err, res) => { if (err) throw err; add_not_interested() }
+            )
+        }
+
+        User.findOne({ _id : mongo.ObjectID(add_by_id.user_id), interested: add_by_id.event_id }, (err, res) => {
+            if (err) throw err;
+
+            if (res !== undefined || res !== null)
+                remove_interested();
+            else 
+                add_not_interested()
+        })
+    })
 
     socket.on('email to', (email) => {
         console.log(email);

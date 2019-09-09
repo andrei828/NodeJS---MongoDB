@@ -58,7 +58,28 @@ db_service.get_events_from_db = (callback) => {
         if (err) throw err;
         callback(res);
     });
+}
 
+// main page suggestions
+db_service.get_recommended_events = (context, callback) => {
+    Event.find({}).limit(8).exec((err, res) => {
+        if (err) throw err;
+        callback(res)
+    })
+}
+
+db_service.get_nearby_events = (city, callback) => {
+    Event.find({ "city" : city }).limit(8).exec((err, res) => {
+        if (err) throw err;
+        callback(res)
+    })
+}
+
+db_service.get_upcoming_events = (date, callback) => {
+    Event.find({"date": { $gt: date }}).sort({"date": 1}).limit(8).exec((err, res) => {
+        if (err) throw err;
+        callback(res)
+    })
 }
 
 db_service.get_by_category_from_db = (category, callback) => {
@@ -85,7 +106,7 @@ db_service.set_similar_events = (callback) => {
                      .exec((err2, res2) => { 
                         if (err2) throw err2; 
                         
-                        res2.forEach((item2) => {
+                         res2.forEach((item2) => {
                             Event.findOne( { _id: mongo.ObjectID(item1._id)}, (err3, res3) => {
                                 if (res3.rel_events.length < 5) {
                                     Event.updateOne(
@@ -133,6 +154,43 @@ db_service.empty_rel_events = (callback) => {
         })
     })
     callback('Done');
+}
+
+db_service.set_currency_random = (callback) => {
+    Event.find({}, (err1, res1) => {
+        if (err1) throw err1;
+
+        var i;
+        for (i = 0; i < res1.length; i++) {
+            if (res1[i].prices[0] === "") {
+                Event.updateOne(
+                    { _id: mongo.ObjectID(res1[i]._id) },
+                    { "currency": "FREE" },
+                    (err2, res2) => { if (err2) throw err2; }
+                )
+            } else if (i % 3 === 0) {
+                Event.updateOne(
+                    { _id: mongo.ObjectID(res1[i]._id) },
+                    { "currency": "$"},
+                    (err2, res2) => { if (err2) throw err2; }
+                )
+            } else if (i % 3 === 1) {
+                Event.updateOne(
+                    { _id: mongo.ObjectID(res1[i]._id) },
+                    { "currency": "$"},
+                    (err2, res2) => { if (err2) throw err2; }
+                )
+            } else if (i % 3 === 2) {
+                Event.updateOne(
+                    { _id: mongo.ObjectID(res1[i]._id) },
+                    { "currency": "RON"} ,
+                    (err2, res2) => { if (err2) throw err2; }
+                )
+            }
+        }
+
+        if (i === res1.length) callback('success');
+    })
 }
 
 module.exports = db_service

@@ -16,6 +16,7 @@
     <!-- Include js plugin -->
     <script src="../owl.carousel.min.js"></script>
     <script src = "/socket.io/socket.io.js"></script>
+
     <style>
         body {
             font-family: 'Segoe UI';
@@ -155,7 +156,7 @@
         /* Interested - not Interested*/
         .interested_c {
             font-size: 12px;
-            color: #494949 !important;
+            color: #494949;
             text-transform: uppercase;
             text-decoration: none;
             background: transparent;
@@ -232,10 +233,6 @@
     <script>
         var socket = io();
 
-        socket.on('response', (data) => {
-            
-        });
-
         $(document).ready(function(){
             $('.owl-carousel').owlCarousel({
                 loop:true,
@@ -255,11 +252,6 @@
                 }
             })
         });
-
-        socket.on('email to', (data) => {
-            //alert('success')
-            //$("#emailmodal").modal("hide");
-		});
 
         function send_mail() {
             socket.emit('email to', document.getElementById("mail_value").value);
@@ -285,6 +277,33 @@
                 prices[i].style.backgroundColor = "transparent";
             price.style.backgroundColor = "#f6b93b";
         }
+
+        function interested_clicked() {
+            document.getElementById("interested_btn").style.color = "white"
+            document.getElementById("interested_btn").style.backgroundColor = "#f6b93b"
+            document.getElementById("not_interested_btn").style.backgroundColor = "transparent"
+            document.getElementById("not_interested_btn").style.color = "black"
+
+            var add_interested = {
+                user_id: '<%= user._id %>',
+                event_id: '<%= event_data._id%>'
+            }
+            socket.emit('interested', add_interested)
+        }
+
+        function not_interested_clicked() {
+            document.getElementById("not_interested_btn").style.color = "white"
+            document.getElementById("not_interested_btn").style.backgroundColor = "red"
+            document.getElementById("interested_btn").style.backgroundColor = "transparent"
+            document.getElementById("interested_btn").style.color = "black"
+            
+            var add_not_interested = {
+                user_id: '<%= user._id %>',
+                event_id: '<%= event_data._id%>'
+            }
+            socket.emit('not_interested', add_not_interested)
+        }
+
     </script>
 </head>
 <body>
@@ -367,9 +386,9 @@
                 </div>
                 <div class="modal-body" align="center">  
                     <div align="center">
-                        <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">130$</p>
-                        <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">250$</p>
-                        <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)">320$</p>
+                        <% for (var i = 0; i < event_data.prices.length; i++) { %>
+                            <p class="categ price" rel="follow noopener" style="font-size: 20px; padding: 1%; width: 130px;" onclick="price_selected(this)"><%=event_data.prices[i]%><%=event_data.currency%></p>
+                        <% } %>
                     </div>
 
                     <br><br>
@@ -407,23 +426,32 @@
                 </div>
             </div>
             <p style="font-size: 20px; font-family: Segoe UI Light; color: gray; margin-left: 12px; margin-right: 10%; text-align: justify"><%= event_data.description %></p><br>
-            
-            <span style="font-size: 18px; color: green; margin-left: 18px; font-family: 'Segoe UI'"> From <b>120$ </b></span>
+            <% if (!userAlreadyGoing && event_data.prices[0] !== "") { %>
+                <span style="font-size: 18px; color: green; margin-left: 18px; font-family: 'Segoe UI'"> From <b id="price"></b></span>
+                <script>
+                    document.getElementById("price").innerHTML = Math.min(<%=event_data.prices%>).toString() + '<%=event_data.currency%>'
+                </script>
+            <% } else if (!userAlreadyGoing) { %>
+                <span style="font-size: 18px; color: green; margin-left: 18px; font-family: 'Segoe UI'"><b id="price">FREE</b></span>
+            <% } %>
             <div class="row" style="margin-left: 5px;">
                 <div class="col-sm-6 col-md-6 col-lg-6">
                 <% if (userAlreadyGoing) { %>
-                <form action='/remove-event/<%= event_data._id %>' method="post">
-                    <button type="submit" class="btn btn-danger">Leave event</button>
-                </form>
+                    <form action='/remove-event/<%= event_data._id %>' method="post">
+                        <button type="submit" class="btn btn-danger">Leave event</button>
+                    </form>
                 <% } else { %>
-                
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#registrymodal">Participate to event</button>
-                
+                    <% if (event_data.prices[0] !== "") { %>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#registrymodal">Participate to event</button>
+                    <% } else { %>
+                        <form action='/add-event/<%= event_data._id %>' method="post">
+                            <button type="submit" class="btn btn-primary" style="padding-left:3%; padding-right: 3%">Participate to event</button>
+                        </form>
+                    <% } %>
                 <% } %>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="button_cont" align="center"><p class="interested_c" rel="nofollow noopener">Interested</p>&nbsp<p class="not interested_c" rel="nofollow noopener">Not Interested</p></div>
-                <div class="button_cont" align="center"></div>
+                    <div class="button_cont" align="center"><p class="interested_c" id="interested_btn" onclick="interested_clicked()" rel="nofollow noopener">Interested</p>&nbsp<p class="not interested_c" id="not_interested_btn" onclick="not_interested_clicked()" rel="nofollow noopener">Not Interested</p></div>
                 </div>
             </div>
         </div>
