@@ -175,7 +175,12 @@ io.on("connection", (socket) => {
             to: email,
             subject: 'Sending email from platform',
             text: 'That was easy!',
-            html: '<div style="background-color: gray; color: white"> <p>Join us</p></div>'
+            html: 'Embedded image: <img src="cid:unique@kreata.ee"/>',
+            attachments: [{
+                filename: 'review_icon.png',
+                path: './uploads/review_icon.png',
+                cid: 'unique@kreata.ee' //same cid value as in the html img src
+            }]
           };
           
           transporter.sendMail(mailOptions, function(error, info){
