@@ -45,13 +45,33 @@ db_service.check_user_event_link = (user_id, event_id, callback) => {
     )
 }
 
+db_service.get_users = (callback) => {
+    User.find({}, (err, res) => {
+        if (err) throw err;
+        callback(res);
+    })
+}
+
+db_service.get_user_going_events = (event_ids, callback) => {
+    Event.find({ _id: { $in: event_ids } }, (err, res) => {
+        if (err) throw err;
+        callback(res);
+    })
+}
+
+db_service.get_user_by_id = (user_id, callback) => {
+    User.findOne({ _id: mongo.ObjectID(user_id) }, (err, res) => {
+        if (err) throw err;
+        callback(res)
+    })
+}
+
 db_service.get_event_by_id = (event_id, callback) => {
     Event.findOne( { _id : mongo.ObjectID(event_id) }, (err, res) => {
         if (err) throw err;
         callback(res) 
     });
 }
-
 
 db_service.get_events_from_db = (callback) => {
     Event.find({}, (err, res) => {

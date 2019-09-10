@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-<head>
     <title>Node Authentication</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -25,7 +24,7 @@
 
         $(document).ready(function(){
             $('.owl-carousel').owlCarousel({
-                    loop:true,
+                    loop:false,
                     margin:10,
                     dots: false,
                     autoHeight: true,
@@ -338,38 +337,44 @@
     </center>
     </div>
 
-<img src="first_billboard.jpg" style="width: 100%; box-shadow: 0px 0px 35px black; cursor: pointer;"/>
-    <h2 style="margin: 1%; margin-top:3%; margin-left:2%">Recommended for you</h2>
+    <center><h1 style="margin-top: 2%"><%=user.firstname%>'s profile</h1></center>
+    <h2 style="margin: 1%; margin-top:2%; margin-left:2%">Your events</h2>
     <div class="owl-carousel owl-theme tile_list">
-        <% for (var i = 0; i < recommended_events.length; i++) { %>
-            <form action='/event/<%= recommended_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
+        <% for (var i = 0; i < going_events.length; i++) { %>
+            <form action='/event/<%= going_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
                 <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
                         rgba(0,0, 0, 0), 90%,
-                        rgba(0, 0, 0, 0.7) 100%), url('<%= recommended_events[i].image1 %>');">
+                        rgba(0, 0, 0, 0.7) 100%), url('<%= going_events[i].image1 %>');">
                     <div style="height:100%; position:relative;">
-                        <p style="position:absolute; bottom:-10px;  left:2%;"><b><%= recommended_events[i].name %>, <%= recommended_events[i].date %></b></p>
+                        <p style="position:absolute; bottom:-10px;  left:2%;"><b><%= going_events[i].name %>, <%= going_events[i].date %></b></p>
                     </div>
              </div>
             </form>
         <% } %>
-    </div>
-    <br>
-    <h2 style="margin: 1%; margin-left:2%">Interesting nearby</h2>
-    <div class="owl-carousel owl-theme tile_list">
-        <% for (var i = 0; i < nearby_events.length; i++) { %>
-            <form action='/event/<%= nearby_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
-                <div class="item" style="background-image: linear-gradient(to bottom, 
-                        rgba(0,0, 0, 0), 90%,
-                        rgba(0, 0, 0, 0.7) 100%), url('<%= nearby_events[i].image1 %>');">
-                    
-                    <div style="height:100%; position:relative;">
-                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= nearby_events[i].name %>, <%= nearby_events[i].date %></b></p>
-                    </div>
-                </div>
-            </form>
+        <% if (!going_events.length) { %>
+            <p style="margin-left: 20%;">You have no events yet...</p>
         <% } %>
     </div>
-    <h2 style="margin: 1%; margin-left:2%">Upcoming events</h2>
+    <br>
+    <h2 style="margin: 1%; margin-top:3%; margin-left:2%">History</h2>
+    <div class="owl-carousel owl-theme tile_list">
+        <% for (var i = 0; i < history_events.length; i++) { %>
+            <form action='/event/<%= history_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
+                <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
+                        rgba(0,0, 0, 0), 90%,
+                        rgba(0, 0, 0, 0.7) 100%), url('<%= history_events[i].image1 %>');">
+                    <div style="height:100%; position:relative;">
+                        <p style="position:absolute; bottom:-10px;  left:2%;"><b><%= history_events[i].name %>, <%= history_events[i].date %></b></p>
+                    </div>
+             </div>
+            </form>
+        <% } %>
+        <% if (!history_events.length) { %>
+            <p style="margin-left: 20%;">You have no events in history...</p>
+        <% } %>
+    </div>
+    <br>
+    <h2 style="margin: 1%; margin-top:3%; margin-left:2%">Upcoming</h2>
     <div class="owl-carousel owl-theme tile_list">
         <% for (var i = 0; i < upcoming_events.length; i++) { %>
             <form action='/event/<%= upcoming_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
@@ -377,27 +382,15 @@
                         rgba(0,0, 0, 0), 90%,
                         rgba(0, 0, 0, 0.7) 100%), url('<%= upcoming_events[i].image1 %>');">
                     <div style="height:100%; position:relative;">
-                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= upcoming_events[i].name %>, <%= upcoming_events[i].date %></b></p>
+                        <p style="position:absolute; bottom:-10px;  left:2%;"><b><%= upcoming_events[i].name %>, <%= upcoming_events[i].date %></b></p>
                     </div>
-                </div>
+             </div>
             </form>
+        <% } %>
+        <% if (!upcoming_events.length) { %>
+            <p style="margin-left: 20%;">You have no events upcoming...</p>
         <% } %>
     </div>
     <br>
-    <h2 style="margin: 1%; margin-left:2%">Concerts</h2>
-    <div class="owl-carousel owl-theme tile_list">
-        <% for (var i = 0; i < category_events.length; i++) { %>
-            <form action='/event/<%= category_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
-                <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
-                            rgba(0,0, 0, 0), 90%,
-                            rgba(0, 0, 0, 0.7) 100%), url('<%= category_events[i].image1 %>');">
-                    <div style="height:100%; position:relative;">
-                        <p style="position:absolute; bottom:-10px; left:2%;"><b><%= category_events[i].name %>, <%= category_events[i].date %></b></p>
-                    </div>
-                </div>
-            </form>
-        <% } %>
-    </div>
-    <br><br><br><br>
-</body>
+    </body>
 </html>

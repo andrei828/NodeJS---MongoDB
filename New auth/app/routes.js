@@ -87,6 +87,12 @@ module.exports = function(app, passport) {
         })
     })
 
+    app.get('/get_events', (req, res) => {
+        db_service.get_events_from_db((events_data) => {
+            console.log(events_data)
+        })
+    })
+
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {
         res.render('index.ejs');
@@ -107,7 +113,6 @@ module.exports = function(app, passport) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        console.log(get_date_today())
         db_service.get_recommended_events("", (reco_ev) => {
             db_service.get_nearby_events("Bucharest", (near_ev) => {
                 db_service.get_upcoming_events(get_date_today(), (upco_ev) => {
@@ -124,6 +129,65 @@ module.exports = function(app, passport) {
             })
         })
     });
+
+    app.get('/about', (req, res) => {
+        res.render('about', {
+            user: req.user
+        })
+    })
+
+    app.get('/user', isLoggedIn, (req, res) => {
+        db_service.get_user_going_events(req.user.events, (go_events) => {
+            db_service.get_user_going_events(req.user.history, (hi_events) => {
+                db_service.get_upcoming_events(get_date_today(), (up_events) => {
+                    res.render('user', {
+                        user: req.user,
+                        going_events: go_events,
+                        history_events: hi_events,
+                        upcoming_events: up_events
+                    })
+                })
+            })
+        })
+    })
+
+    app.get('/admin_users', isLoggedIn, (req, res) => {
+        db_service.get_users((users_data) => {
+            res.render('admin_users', {
+                users: users_data
+            })
+        })
+    })
+
+    app.get('/admin/user/:user_id', isLoggedIn, (req, res) => {
+        db_service.get_user_by_id( req.params.user_id, (user_data) => {
+            db_service.get_user_going_events(user_data.events, (go_events) => {
+                res.render('admin_user', {
+                    user: user_data,
+                    events: go_events
+                })
+            })
+        })
+    })
+
+    app.get('/admin/event/:event_id', isLoggedIn, (req, res) => {
+        db_service.get_event_by_id( req.params.event_id, (event_data) => {
+            db_service.get_user_going_events(event_data.rel_events, (rel_ev) => {
+                res.render('admin_event', {
+                    event: event_data,
+                    rel_events: rel_ev
+                })
+            })
+        })
+    })
+
+    app.get('/admin_events', isLoggedIn, (req, res) => {
+        db_service.get_events_from_db((events_data) => {
+            res.render('admin_events', {
+                events: events_data
+            })
+        })
+    })
 
     app.get('/search', isLoggedIn, (req, res) => {
         db_service.get_by_category_from_db("social", (social_ev) => {
