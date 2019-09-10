@@ -209,6 +209,7 @@ module.exports = function(app, passport) {
 
     app.get('/search-events', isLoggedIn, (req, res) => {
         db_service.get_events_by_search(req.query.search, (result_ev) => {   
+            console.log(result_ev)
             res.render("search_page", {
                 user: req.user,
                 event_list: result_ev

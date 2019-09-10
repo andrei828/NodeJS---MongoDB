@@ -315,11 +315,6 @@
                 <button class="btn btn-danger" style="margin-left:10px;" onclick="close_review_div()">Cancel</button>
             </center>
             
-            <script>
-                function func(element) {
-                   // alert(element.value);
-                }
-            </script>
             </div>
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -329,7 +324,6 @@
             <i class="fa fa-search" onclick="search_events()"></i>
             <script>
                 function search_events() {
-                    
                     document.getElementsByClassName("form_search")[0].submit();
                 }
             </script>
@@ -339,7 +333,7 @@
         <% while (index > 2) { %>
             <div class="owl-carousel owl-theme tile_list" style="margin-top: 2%">
                 <% for (var i = 0; i < 3; i++) { %>
-                <% element = event_list.length - index + 1 %>
+                <% element = event_list.length - index %>
                 <form action='/event/<%= event_list[element]._id %>' onclick="Event_tile_clicked(this)" method="get">
                     <div class="item" style="background-image: linear-gradient(to bottom, 
                             rgba(0,0, 0, 0), 90%,
@@ -354,8 +348,8 @@
                 <% } %>
             </div>
         <% } %>  
-
-        <% if (index--) { %>
+       
+        <% if (index > -1) { %>
             <div class="owl-carousel owl-theme tile_list" style="margin-top: 2%">
                 <% while (index) { %>
                     <% element = event_list.length - index %>
@@ -372,6 +366,10 @@
                     <% index--; %>
                 <% } %>
             </div>
+        <% } %>
+
+        <% if (!event_list.length) { %>
+            <p>There are no events with this query</p>
         <% } %>
    </body>
 </html>
