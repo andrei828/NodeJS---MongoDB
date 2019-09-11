@@ -68,7 +68,7 @@ var transporter = nodemailer.createTransport({
     debug: true,
     auth: {
       user: 'admin@anungu.onmicrosoft.com',
-      pass: ''
+      pass: 'EKDFFD24EAL7D_'
     }
 });
 
@@ -168,17 +168,17 @@ io.on("connection", (socket) => {
         })
     })
 
-    socket.on('email to', (email) => {
-        console.log(email);
+    socket.on('email to', (email_data) => {
         var mailOptions = {
             from: 'admin@anungu.onmicrosoft.com',
-            to: email,
+            to: email_data.email,
             subject: 'Sending email from platform',
             text: 'That was easy!',
-            html: 'Embedded image: <img src="cid:unique@kreata.ee"/>',
+            html: 
+            '<center style="font-family: '+ '"Segoe UI"' + '> <br><img src="cid:unique@kreata.ee" /> <br><br> <span style="font-size: 30px; font-weight: bold"> ' + email_data.event_name + '</span><br><br><br><br> <span style="font-size: 25px">' + email_data.user_firstname + ' wants you to join him</span>' + '<br><br>' + '<span style="font-size:20px"> Your friend ' + email_data.user_firstname + " thought about you and shared an invitation to <br> this event so you can both enjoy it. Don't let him down, be part of the fun!</span> <br><br> <span style='font-size: 15px'>Sign up and be part of the experience!</span>" +'<br><br><br><a href="https://www.google.com" style="border: 1px solid black; padding: 15px; background-color: transparent; text-decoration:none; color:black; border-radius: 15px;">Attend</a></center>',                                                                                             
             attachments: [{
-                filename: 'review_icon.png',
-                path: './uploads/review_icon.png',
+                filename: email_data.event_image,
+                path: './uploads/' + email_data.event_image,
                 cid: 'unique@kreata.ee' //same cid value as in the html img src
             }]
           };

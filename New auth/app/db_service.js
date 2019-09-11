@@ -45,6 +45,18 @@ db_service.check_user_event_link = (user_id, event_id, callback) => {
     )
 }
 
+db_service.add_remaining = (event_id, event_remainng, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        {$set: { "remaining_seats": event_remainng }},
+        false,
+        true,
+        (err, res) => {
+            if (err) throw err;
+            callback();
+        })
+}
+
 db_service.get_users = (callback) => {
     User.find({}, (err, res) => {
         if (err) throw err;
@@ -66,11 +78,14 @@ db_service.get_user_by_id = (user_id, callback) => {
     })
 }
 
-db_service.get_event_by_id = (event_id, callback) => {
-    Event.findOne( { _id : mongo.ObjectID(event_id) }, (err, res) => {
+
+
+db_service.change_num_people_going = (event_id, value, callback) => {
+    Event.updateOne({ _id: mongo.ObjectID(event_id)}, { $inc: { "people_going": value } },
+    (err, res) => {
         if (err) throw err;
-        callback(res) 
-    });
+        callback()
+    })
 }
 
 db_service.get_events_from_db = (callback) => {
@@ -111,6 +126,13 @@ db_service.get_by_category_from_db = (category, callback) => {
 
 db_service.get_events_by_search = (search, callback) => {
     Event.find({ $or: [{"name": { $regex : ".*" + search + ".*", $options: 'i' } }, {"categories": { $regex : ".*" + search + ".*", $options: 'i' }} ]}, (err, res) => {
+        if (err) throw err;
+        callback(res);
+    })
+}
+
+db_service.get_event_by_id = (event_id, callback) => {
+    Event.findOne({ _id: mongo.ObjectID(event_id) }, (err, res) => {
         if (err) throw err;
         callback(res);
     })

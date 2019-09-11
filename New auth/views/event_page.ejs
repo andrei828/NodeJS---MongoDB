@@ -253,7 +253,15 @@
         });
 
         function send_mail() {
-            socket.emit('email to', document.getElementById("mail_value").value);
+            var email_data = {
+                event_name: '<%= event_data.name %>',
+                event_date: '<%= event_data.date %>',
+                event_image: '<%= event_data.image1%>',
+                user_firstname: '<%= user.firstname %>',
+                event_location: '<%= event_data.location %>',
+                email: document.getElementById("mail_value").value
+            }
+            socket.emit('email to', email_data);
         }
 
         function Event_tile_clicked(element) {

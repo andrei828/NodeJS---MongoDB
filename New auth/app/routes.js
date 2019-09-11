@@ -93,6 +93,22 @@ module.exports = function(app, passport) {
         })
     })
 
+    app.get('/num_events', (req, res) => {
+        db_service.get_events_from_db((events) => {
+            events.forEach((ev) => {
+                console.log('0' + ev.added_date.getMonth() + '-0' + ev.added_date.getDate());
+            })
+        })
+    })
+
+    app.get('/set_remaining_seats', (req, res) => {
+        db_service.get_events_from_db((events) => {
+            events.forEach((event) => {
+                db_service.add_remaining(event._id, event.nr_seats, () => {});
+            })
+        })
+    })
+
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {
         res.render('index.ejs');
@@ -209,7 +225,6 @@ module.exports = function(app, passport) {
 
     app.get('/search-events', isLoggedIn, (req, res) => {
         db_service.get_events_by_search(req.query.search, (result_ev) => {   
-            console.log(result_ev)
             res.render("search_page", {
                 user: req.user,
                 event_list: result_ev
@@ -250,14 +265,18 @@ module.exports = function(app, passport) {
     });
 
     app.post('/add-event/:event_id', isLoggedIn, (req, res) => {
-        db_service.add_event_to_user(req.params.event_id, req.user._id, () => {
-            res.redirect('/event/' + req.params.event_id);
+        db_service.change_num_people_going(req.params.event_id, 1, () => {
+            db_service.add_event_to_user(req.params.event_id, req.user._id, () => {
+                res.redirect('/event/' + req.params.event_id);
+            });
         });
     });
 
     app.post('/remove-event/:event_id', isLoggedIn, (req, res) => {
-        db_service.remove_event_from_user(req.params.event_id, req.user._id, () => {
-            res.redirect('/event/' + req.params.event_id);
+        db_service.change_num_people_going(req.params.event_id, -1, () => {
+            db_service.remove_event_from_user(req.params.event_id, req.user._id, () => {
+                res.redirect('/event/' + req.params.event_id);
+            });
         });
     });
 

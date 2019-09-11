@@ -12,6 +12,7 @@ EventSchema = new Schema( {
 	city:			String,
 	nr_seats:		Number,
 	currency:		String,
+	people_going:   Number,
 	prices:			[],
 	categories:		[],
 	rel_events:		[],
