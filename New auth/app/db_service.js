@@ -78,7 +78,128 @@ db_service.get_user_by_id = (user_id, callback) => {
     })
 }
 
+// user update
+db_service.update_user_firstname = (user_id, new_firstname, callback) => {
+    User.updateOne(
+        { _id: mongo.ObjectID(user_id)},
+        { "firstname": new_firstname },
+        (err, res) => {
+            if (err) throw err;
+            callback();
+        }
+    )
+}
 
+db_service.update_user_secondname = (user_id, new_secondname, callback) => {
+    User.updateOne(
+        { _id: mongo.ObjectID(user_id)},
+        { "secondname": new_secondname },
+        (err, res) => {
+            if (err) throw err;
+            callback();
+        }
+    )
+}
+
+db_service.update_user_email = (user_id, new_email, callback) => {
+    User.updateOne(
+        { _id: mongo.ObjectID(user_id)},
+        { "email": new_email },
+        (err, res) => {
+            if (err) throw err;
+            callback();
+        }
+    )
+}
+
+// event update
+db_service.update_event_name = (event_id, new_name, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        { "name": new_name },
+        (err, res) => {
+            if (err) throw err;
+            callback()
+        }
+    )
+}
+
+db_service.update_event_city = (event_id, new_city, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        { "city": new_city },
+        (err, res) => {
+            if (err) throw err;
+            callback()
+        }
+    )
+}
+
+db_service.update_event_date = (event_id, new_date, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        { "name": new_date },
+        (err, res) => {
+            if (err) throw err;
+            callback()
+        }
+    )
+}
+
+db_service.update_event_hour = (event_id, new_hour, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        { "hour": new_hour },
+        (err, res) => {
+            if (err) throw err;
+            callback()
+        }
+    )
+}
+
+db_service.update_event_owner = (event_id, new_owner, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        { "owner": new_owner },
+        (err, res) => {
+            if (err) throw err;
+            callback()
+        }
+    )
+}
+
+db_service.update_event_description = (event_id, new_description, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        { "description": new_description },
+        (err, res) => {
+            if (err) throw err;
+            callback()
+        }
+    )
+}
+
+db_service.update_event_location = (event_id, new_location, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        { "location": new_location },
+        (err, res) => {
+            if (err) throw err;
+            callback()
+        }
+    )
+}
+
+db_service.remove_rel_event = (event_id, rel_event_id, callback) => {
+    Event.updateOne(
+        { _id: mongo.ObjectID(event_id)},
+        { $pull: { "rel_events": mongo.ObjectID(rel_event_id)}},
+        (err, res) => {
+            if (err) throw err;
+            callback()
+        }
+    )
+}
 
 db_service.change_num_people_going = (event_id, value, callback) => {
     Event.updateOne({ _id: mongo.ObjectID(event_id)}, { $inc: { "people_going": value } },

@@ -186,6 +186,30 @@ module.exports = function(app, passport) {
         })
     })
 
+    app.post('/admin/user/:user_id/set-firstname', isLoggedIn, (req, res) => {
+        db_service.update_user_firstname(req.params.user_id, req.body.firstname, () => {
+            res.redirect('/admin/user/' + req.params.user_id);
+        })
+    })
+
+    app.post('/admin/user/:user_id/set-secondname', isLoggedIn, (req, res) => {
+        db_service.update_user_secondname(req.params.user_id, req.body.secondname, () => {
+            res.redirect('/admin/user/' + req.params.user_id);
+        })
+    })
+
+    app.post('/admin/user/:user_id/set-email', isLoggedIn, (req, res) => {
+        db_service.update_user_email(req.params.user_id, req.body.email, () => {
+            res.redirect('/admin/user/' + req.params.user_id);
+        })
+    })
+
+    app.post('/admin/user/:user_id/:event_id', isLoggedIn, (req, res) => {
+        db_service.remove_event_from_user(req.params.event_id, req.params.user_id, () => {
+            res.redirect('/admin/user/' + req.params.user_id);
+        })
+    })
+
     app.get('/admin/event/:event_id', isLoggedIn, (req, res) => {
         db_service.get_event_by_id( req.params.event_id, (event_data) => {
             db_service.get_user_going_events(event_data.rel_events, (rel_ev) => {
@@ -194,6 +218,54 @@ module.exports = function(app, passport) {
                     rel_events: rel_ev
                 })
             })
+        })
+    })
+
+    app.post('/admin/event/:event_id/set-name', isLoggedIn, (req, res) => {
+        db_service.update_event_name(req.params.event_id, req.body.name, () => {
+            res.redirect('/admin/event/' + req.params.event_id);
+        });
+    })
+
+    app.post('/admin/event/:event_id/set-city', isLoggedIn, (req, res) => {
+        db_service.update_event_city(req.params.event_id, req.body.city , () => {
+            res.redirect('/admin/event/' + req.params.event_id);
+        });
+    })
+
+    app.post('/admin/event/:event_id/set-date', isLoggedIn, (req, res) => {
+        db_service.update_event_date(req.params.event_id, req.body.date, () => {
+            res.redirect('/admin/event/' + req.params.event_id);
+        });
+    })
+
+    app.post('/admin/event/:event_id/set-hour', isLoggedIn, (req, res) => {
+        db_service.update_event_hour(req.params.event_id, req.body.hour, () => {
+            res.redirect('/admin/event/' + req.params.event_id);
+        });
+    })
+
+    app.post('/admin/event/:event_id/set-owner', isLoggedIn, (req, res) => {
+        db_service.update_event_owner(req.params.event_id, req.body.owner, () => {
+            res.redirect('/admin/event/' + req.params.event_id);
+        });
+    })
+
+    app.post('/admin/event/:event_id/set-location', isLoggedIn, (req, res) => {
+        db_service.update_event_location(req.params.event_id, req.body.location, () => {
+            res.redirect('/admin/event/' + req.params.event_id);
+        });
+    })
+
+    app.post('/admin/event/:event_id/set-description', isLoggedIn, (req, res) => {
+        db_service.update_event_description(req.params.event_id, req.body.description , () => {
+            res.redirect('/admin/event/' + req.params.event_id);
+        });
+    })
+
+    app.post('/admin/event/:event_id/:rel_event_id', isLoggedIn, (req, res) => {
+        db_service.remove_rel_event(req.params.event_id, req.params.rel_event_id, () => {
+            res.redirect('/admin/event/' + req.params.event_id);
         })
     })
 
@@ -279,6 +351,47 @@ module.exports = function(app, passport) {
             });
         });
     });
+
+    // data for power bi
+    app.get('/get_num_users', (req, res) => {
+        db_service.get_users((users) => {
+            res.send(users.length.toString())
+        })
+    })
+
+    app.get('/get_num_events', (req, res) => {
+        db_service.get_events_from_db((events) => {
+            res.send(events.length.toString());
+        })
+    })
+
+    app.get('/get_num_categories', (req, res) => {
+        db_service.get_events_from_db((events) => {
+            let data = events.map((item) => item.categories)
+            res.send(data);
+        })
+    })
+
+    app.get('/get_people_going', (req, res) => {
+        db_service.get_events_from_db((events) => {
+            let data = events.map((item) => item.people_going)
+            res.send(data);
+        })
+    })
+
+    app.get('/get_money_site', (req, res) => {
+        db_service.get_events_from_db((events) => {
+            let data = events.map((item) => item.prices)
+            res.send(data);
+        })
+    })
+
+    app.get('/get_locations', (req, res) => {
+        db_service.get_events_from_db((events) => {
+            let data = events.map((item) => item.location)
+            res.send(data);
+        })
+    })
 
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {

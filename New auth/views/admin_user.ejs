@@ -7,7 +7,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>    
-    
+            
         </script>
         <style>
             body {
@@ -95,16 +95,14 @@
         <h3 style="margin: 3%; margin-bottom: 2%;">Dashboard</h3>
         <div class="row">
             <div class="col-lg" style="text-align: center">
-            <form action="" method="post" style="margin: 5%;">
-                <div class="form-group">
+            <form action="/admin/user/<%=user._id%>/set-firstname" method="post" style="margin: 5%;">
                     <label>First name:</label>
                     <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232; display: inline" class="form-control" name="firstname" value="<%=user.firstname%>">
-                </div>
             </form>
             </div>
 
             <div class="col-lg" style="text-align: center">
-            <form action="" method="post" style=";margin: 5%;">
+            <form action="/admin/user/<%=user._id%>/set-secondname" method="post" style="margin: 5%;">
                 <div class="form-group">
                     <label>Second name:</label>
                     <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="secondname" value="<%=user.secondname%>">
@@ -112,9 +110,9 @@
             </form>
             </div>
             <div class="col-lg" style="text-align: center">
-                <form action="" method="post" style="margin: 5%;">
+                <form action="/admin/user/<%=user._id%>/set-email" method="post" style="margin: 5%;">
                     <div class="form-group">
-                        <label>First name:</label>
+                        <label>Email:</label>
                         <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="email" value="<%=user.email%>">
                     </div>
                 </form>
@@ -141,7 +139,9 @@
                     <%=events[i].location%> 
                 </div>
                 <div class="col-lg" style="vertical-align: middle; text-align: center">
-                    <button class="btn btn-danger">Restrict access</button>
+                    <form  action="/admin/user/<%=user._id%>/<%=events[i]._id%>" method="post">
+                        <button class="btn btn-danger">Restrict access</button>
+                    </form>
                 </div>
             </div></center>
             

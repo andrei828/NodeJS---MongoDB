@@ -95,86 +95,94 @@
         <h3 style="margin: 3%; margin-bottom: 2%;">Dashboard</h3>
         <div class="row">
             <div class="col-lg" style="text-align: center">
-            <form action="" method="post" style="margin: 5%;">
+            <form action="/admin/event/<%=event._id%>/set-name" method="post" style="margin: 5%;">
                 <div class="form-group">
                     <label>Event name:</label>
-                    <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232; display: inline" class="form-control" name="firstname" value="<%=event.name%>">
+                    <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232; display: inline" class="form-control" name="name" value="<%=event.name%>">
                 </div>
             </form>
             </div>
 
             <div class="col-lg" style="text-align: center">
-            <form action="" method="post" style=";margin: 5%;">
+            <form action="/admin/event/<%=event._id%>/set-city" method="post" style="margin: 5%;">
                 <div class="form-group">
                     <label>City</label>
-                    <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="secondname" value="<%=event.city%>">
+                    <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="city" value="<%=event.city%>">
                 </div>
             </form>
             </div>
             <div class="col-lg" style="text-align: center">
-                <form action="" method="post" style="margin: 5%;">
+                <form action="/admin/event/<%=event._id%>/set-date" method="post" style="margin: 5%;">
                     <div class="form-group">
                         <label>Date</label>
-                        <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="email" value="<%=event.date%>">
+                        <input type="date" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="date" value="<%=event.date%>">
                     </div>
                 </form>
             </div>
         </div>
         <div class="row">
-                <div class="col-lg" style="text-align: center">
-                <form action="" method="post" style="margin: 5%;">
+            <div class="col-lg" style="text-align: center">
+            <form action="/admin/event/<%=event._id%>/set-hour" method="post" style="margin: 5%;">
+                <div class="form-group">
+                    <label>Hour:</label>
+                    <input type="time" style="text-align: center; background: transparent; border: 1px solid #323232; display: inline" class="form-control" name="hour" value="<%=event.hour%>">
+                </div>
+            </form>
+            </div>
+
+            <div class="col-lg" style="text-align: center">
+            <form action="/admin/event/<%=event._id%>/set-owner" method="post" style="margin: 5%;">
+                <div class="form-group">
+                    <label>Owner:</label>
+                    <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="owner" value="<%=event.owner%>">
+                </div>
+            </form>
+            </div>
+            <div class="col-lg" style="text-align: center">
+                <form action="/admin/event/<%=event._id%>/set-location" method="post" style="margin: 5%;">
                     <div class="form-group">
-                        <label>Hour:</label>
-                        <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232; display: inline" class="form-control" name="firstname" value="<%=event.hour%>">
+                        <label>Location:</label>
+                        <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="location" value="<%=event.location%>">
                     </div>
                 </form>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <form action="/admin/event/<%=event._id%>/set-description" method="post" style="margin-left: 10%; width: 80%;">
+                <textarea style="background: transparent; border: 1px solid #323232" type="text" class="form-control" name="description" rows="3" placeholder="Add your description"><%=event.description%></textarea>
+            </form>
+        </div>
+
+        <h2 style="margin: 1%; margin-top:2%; margin-left:2%">Similar events</h2>
+        <% for (var i = 0; i < rel_events.length; i++) { %>
+            
+            <center><div class="user row">
+                <div class="col-lg" style="vertical-align: middle; text-align: center">
+                    <img src="../../<%=rel_events[i].image1%>" style="border-radius: 15px; border: 1px solid gray;" width="150px" height="100px" />
                 </div>
-    
-                <div class="col-lg" style="text-align: center">
-                <form action="" method="post" style="margin: 5%;">
-                    <div class="form-group">
-                        <label>Owner:</label>
-                        <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="secondname" value="<%=event.owner%>">
-                    </div>
-                </form>
+                <div class="col-lg" style="position: relative;vertical-align: middle; text-align: center">
+                        <span style="color: gray">Name: </span><br>
+                        <%=rel_events[i].name%> 
                 </div>
-                <div class="col-lg" style="text-align: center">
-                    <form action="" method="post" style="margin: 5%;">
-                        <div class="form-group">
-                            <label>Location:</label>
-                            <input type="text" style="text-align: center; background: transparent; border: 1px solid #323232;  display: inline" class="form-control" name="email" value="<%=event.location%>">
-                        </div>
+                <div class="col-lg" style="vertical-align: middle; text-align: center">
+                        <span style="color: gray">City: </span><br>
+                        <%=rel_events[i].city%> 
+                </div>
+                <div class="col-lg" style="vertical-align: middle; text-align: center">
+                        <span style="color: gray">Location: </span><br>
+                    <%=rel_events[i].location%> 
+                </div>
+                <div class="col-lg" style="vertical-align: middle; text-align: center">
+                    <form action="/admin/event/<%=event._id%>/<%=rel_events[i]._id%>" method="post" style="margin: 5%;">
+                        <button class="btn btn-danger">Remove related event</button>
                     </form>
                 </div>
-            </div>
-          
-            <h2 style="margin: 1%; margin-top:2%; margin-left:2%">Similar events</h2>
-            <% for (var i = 0; i < rel_events.length; i++) { %>
-                
-                <center><div class="user row">
-                    <div class="col-lg" style="vertical-align: middle; text-align: center">
-                        <img src="../../<%=rel_events[i].image1%>" style="border-radius: 15px; border: 1px solid gray;" width="150px" height="100px" />
-                    </div>
-                    <div class="col-lg" style="position: relative;vertical-align: middle; text-align: center">
-                            <span style="color: gray">Name: </span><br>
-                            <%=rel_events[i].name%> 
-                    </div>
-                    <div class="col-lg" style="vertical-align: middle; text-align: center">
-                            <span style="color: gray">City: </span><br>
-                            <%=rel_events[i].city%> 
-                    </div>
-                    <div class="col-lg" style="vertical-align: middle; text-align: center">
-                            <span style="color: gray">Location: </span><br>
-                        <%=rel_events[i].location%> 
-                    </div>
-                    <div class="col-lg" style="vertical-align: middle; text-align: center">
-                        <button class="btn btn-danger">Remove related event</button>
-                    </div>
-                </div></center>
-                
-            <% } %>
-            <% if (!rel_events.length) { %>
-                <p style="margin-left: 5%;"> No events yet...</p>
-            <% } %>
+            </div></center>
+            
+        <% } %>
+        <% if (!rel_events.length) { %>
+            <p style="margin-left: 5%;"> No events yet...</p>
+        <% } %>
     </body>
 </html>
