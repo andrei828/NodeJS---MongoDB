@@ -68,7 +68,7 @@ var transporter = nodemailer.createTransport({
     debug: true,
     auth: {
       user: 'admin@anungu.onmicrosoft.com',
-      pass: 'Ekdffd24eal7d_'
+      pass: ''
     }
 });
 
