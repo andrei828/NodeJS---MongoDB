@@ -2,44 +2,49 @@
 <html>
 <head>
     <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <style>
-        body         { padding-top:80px; }
+      body {
+        font-family: 'Segoe UI'
+      }
     </style>
 </head>
 <body>
-<div class="container">
-<div class="col-sm-6 col-sm-offset-3">
 
-    <h1><span class="fa fa-sign-in"></span> Login</h1>
+<div class="row">
+    <div class="col-sm-6 col-lg-6">
+        <img src="philipe-cavalcante-Ugpcxb0jG4Q-unsplash.jpg" style="width: 80%;background-size: cover;" />
+    </div>
+    <div class="col-sm-6 col-lg-6" style="padding-right:180px;">
+            <center><h1 style="margin-bottom: 40px; margin-top: 100px;"> Sign in here</h1></center>
 
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-    <% } %>
-
-    <!-- LOGIN FORM -->
-    <form action="/login" method="post">
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="email">
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
-        </div>
-
-        <button type="submit" class="btn btn-warning btn-lg">Login</button>
-    </form>
-
-    <hr>
-
-    <p>Need an account? <a href="/signup">Signup</a></p>
-    <p>Or go <a href="/">home</a>.</p>
-
-   
-
-</div>
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+        
+            <!-- LOGIN FORM -->
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" style="border:1px solid black; background-color: transparent" class="form-control" name="email">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" style="border:1px solid black; background-color: transparent" class="form-control" name="password">
+                </div>
+                <br>
+                <center><button type="submit" class="btn btn-warning btn-lg">Login</button></center>
+            </form>
+        
+            <hr>
+        
+            <p>Need an account? <a href="/signup">Signup</a></p>
+            <p>Or go <a href="/">home</a>.</p>
+    </div>
 </div>
 </body>
 </html>

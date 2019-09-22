@@ -13,7 +13,6 @@
         }
 
         /* navigation bar */
-
         .dropdown_link {
             color: black;
         }
@@ -32,10 +31,13 @@
         .right-side {
             float: right;
         }
-        .dropdown-item:hover {
-            background-color: blue;
-            color: black;
-            cursor: pointer;
+        
+        #loginhov {
+            transition: 0.2s;
+        }
+
+        #loginhov:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -44,14 +46,14 @@
         <!--https://hookagency.com/website-color-schemes-->
         <div class="left-side">
             
-            <img src="upl-1566734376984.png" width="50px" height="50px" style=" border-radius: 30px; background-color:black;margin: 15px; margin-left: 25px; margin-right: 30px">
+            <img src="upl-1566734376984.png" width="50px" height="50px" style="border:0.1px solid black; border-radius: 30px; background-color:black;margin: 15px; margin-left: 25px; margin-right: 30px">
             <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/search" style="color: black">Events</a></span>
             <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/about" style="color: black">About</a></span>
             <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/support" style="color: black">Support</a></span>
         </div>
         <div class="right-side dropdown">
             <span>Already have an account?</span>
-            <a href="/login"><img src="login.png" width="200px" height="50px" style="border: 1px solid black;margin: 15px; opacity: 1; cursor: pointer;"></a>
+            <a href="/login"><img src="login.png" id="loginhov" width="200px" height="50px" style="border: 1px solid black;margin: 15px; opacity: 1; cursor: pointer;"></a>
         </div>
     </div>
 <div>
