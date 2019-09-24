@@ -67,8 +67,11 @@ var transporter = nodemailer.createTransport({
     requireTLS: true,
     debug: true,
     auth: {
-      user: 'admin@anungu.onmicrosoft.com',
-      pass: 'Ekdffd24eal7d_'
+      user: 'community@meetupinfo.onmicrosoft.com',
+      pass: ''
+    },
+    tls: {
+        ciphers: 'SSLv3'
     }
 });
 

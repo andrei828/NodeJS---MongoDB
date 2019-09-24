@@ -280,7 +280,7 @@ module.exports = function(app, passport) {
     app.get('/search', isLoggedIn, (req, res) => {
         db_service.get_by_category_from_db("social", (social_ev) => {
             db_service.get_by_category_from_db("concert", (concert_ev) => {
-                db_service.get_by_category_from_db("sports", (sports_ev) => {
+                db_service.get_by_category_from_db("food", (sports_ev) => {
                     db_service.get_by_category_from_db("art", (art_ev) => {
                         res.render('search_main_page.ejs', {
                             user: req.user,

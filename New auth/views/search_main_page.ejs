@@ -285,7 +285,7 @@
                     <span class="menu-item" style="margin-right: 15px; cursor: pointer;"><a href="/support" style="color: white">Support</a></span>
                 </div>
                 <div class="right-side dropdown">
-                    <span>Hi, Andrew!</span>
+                    <span>Hi, <%=user.firstname%>!</span>
                     <img src="Draft_landing_page.png" class="dropdown-toggle" data-toggle="dropdown" width="50px" height="50px" style="border-radius: 30px; margin: 15px; opacity: 1; cursor: pointer;">
                     
                     <div class="dropdown-menu" style="margin: 10px; text-align: center">
@@ -363,7 +363,7 @@
                 </form>
             <% } %>
         </div>
-        <h2 style="margin: 1%; margin-left:2%">Sports</h2>
+        <h2 style="margin: 1%; margin-left:2%">Events about food</h2>
         <div class="owl-carousel owl-theme tile_list">
             <% for (var i = 0; i < sports_events.length; i++) { %>
                 <form action='/event/<%= sports_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
@@ -380,6 +380,7 @@
         <h2 style="margin: 1%; margin-left:2%">Art</h2>
         <div class="owl-carousel owl-theme tile_list">
             <% for (var i = 0; i < art_events.length; i++) { %>
+                <% if (i !== 1) { %>
                 <form action='/event/<%= art_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
                     <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
                             rgba(0,0, 0, 0), 90%,
@@ -389,6 +390,7 @@
                         </div>
                     </div>
                 </form>
+                <% } %>
             <% } %>
         </div>
    </body>

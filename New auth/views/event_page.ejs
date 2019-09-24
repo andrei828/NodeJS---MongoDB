@@ -498,6 +498,7 @@
 
     <h2 style="margin: 1%; margin-top:3%; margin-left:2%">Similar events</h2>
     <div class="owl-carousel owl-theme tile_list">
+        <% if (rel_events.length) { %>
         <% for (var i = 0; i < rel_events.length; i++) { %>
             <form action='/event/<%= rel_events[i]._id %>' onclick="Event_tile_clicked(this)" method="get">
                 <div class="item" onclick="Event_tile_clicked(this)" style="background-image: linear-gradient(to bottom, 
@@ -508,6 +509,7 @@
                     </div>
              </div>
             </form>
+        <% } %>
         <% } %>
     </div>
 </body>
