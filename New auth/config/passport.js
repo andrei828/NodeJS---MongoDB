@@ -103,6 +103,7 @@ module.exports = function(passport) {
                         newUser.email          = email;
                         newUser.firstname      = req.body.firstname;
                         newUser.secondname     = req.body.secondname;
+                        newUser.image          = "profile-default.jpg"
                         newUser.password       = newUser.generateHash(password);
 
                         newUser.save(function(err) {
@@ -136,6 +137,7 @@ module.exports = function(passport) {
                         newUser.email          = email;
                         newUser.firstname      = req.body.firstname;
                         newUser.secondname     = req.body.secondname;
+                        newUser.image          = "profile-default.jpg"
                         newUser.password       = newUser.generateHash(password);
                         
                         user.save(function (err) {

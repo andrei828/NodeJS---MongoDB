@@ -4,7 +4,7 @@
 // get all the tools we need
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 8080;
+var port     = process.env.PORT || 8081;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -63,15 +63,12 @@ var route = "/knowledgebases/8cff98da-d9d6-48b1-9e21-7a70602214c6/generateAnswer
 var transporter = nodemailer.createTransport({
     host: 'smtp.office365.com',
     port: 587,
-    secure: false,
+    //secure: false,
     requireTLS: true,
     debug: true,
     auth: {
-      user: 'community@meetupinfo.onmicrosoft.com',
-      pass: ''
-    },
-    tls: {
-        ciphers: 'SSLv3'
+      user: "community@meetupinfo.onmicrosoft.com",
+      pass: ""
     }
 });
 
@@ -173,7 +170,7 @@ io.on("connection", (socket) => {
 
     socket.on('email to', (email_data) => {
         var mailOptions = {
-            from: 'admin@anungu.onmicrosoft.com',
+            from: "community@meetupinfo.onmicrosoft.com",
             to: email_data.email,
             subject: 'Sending email from platform',
             text: 'That was easy!',

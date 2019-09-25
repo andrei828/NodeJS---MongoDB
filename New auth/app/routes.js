@@ -304,7 +304,7 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get('/support', isLoggedIn, (req, res) => {
+    app.get('/support', (req, res) => {
         res.render('support_page', {
             user: req.user
         })
