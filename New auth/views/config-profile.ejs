@@ -12,7 +12,7 @@
         body {
             /*padding-top:30px; */
             margin-right: 15%;
-            font-family: Segoe UI Light; 
+            font-family: 'Segoe UI Light'; 
         }
 
 		.category_tile {
@@ -182,9 +182,7 @@
 	</script>
 </head>
 
-<body>
-    <%= user.email %>
-    <%= user.firstname %>
+<body style="padding-left: 30px;">
     <button type="button" class="btn btn-default" href="/profile"><u>Go to profile</u></button>
         <br><br>
 
@@ -207,11 +205,11 @@
 		
 		<br><label>Add a new event category if you didn't find it above</b></label>
         <input id="new_tile_text" style="width: 100%; text-align: center;"></input><br><br>
-		
+		<center>
         <div class="form-group">
-            <button type="submit" class="btn btn-default btn-lg"><u>Add event</u></button>
+            <button type="submit" class="btn btn-default btn-lg"><u>Done</u></button>
          </div>
+		</center>
     </form>
-    
 </body>
 </html>
